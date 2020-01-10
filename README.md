@@ -11,7 +11,7 @@ Go to Data section of Mediaeval site, then to Download section. Click Google Dri
 
 [https://zenodo.org/record/2553414]
 
-[https://github.com/MTG/acousticbrainz-mediaeval-baselines](implementation of paper)
+[implementation of paper](https://github.com/MTG/acousticbrainz-mediaeval-baselines)
 
 
 # Collaborators
