@@ -7,16 +7,14 @@ Go to Data section of Mediaeval site, then to Download section. Click Google Dri
 
 # Links
 
-[https://multimediaeval.github.io/2018-AcousticBrainz-Genre-Task/]
+[2018-AcousticBrainz-Genre-Task](https://multimediaeval.github.io/2018-AcousticBrainz-Genre-Task/)
 
-[https://zenodo.org/record/2553414]
-
-[implementation of paper](https://github.com/MTG/acousticbrainz-mediaeval-baselines)
+[Implementation of paper](https://github.com/MTG/acousticbrainz-mediaeval-baselines)
 
 
 # Collaborators
 
-[https://github.com/sergiooramas]
+(Sergio Oramas)[https://github.com/sergiooramas]
 
 [https://github.com/dbogdanov]
 
