@@ -1,6 +1,6 @@
 ---
 title: "Experiment Design - Exercise2"
-subtitle: "Survey of Graph Databases"
+subtitle: "Reproducibility - Paper2"
 author: |
   | Group 04
   | Helmuth Breitenfellner (e8725866)
