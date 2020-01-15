@@ -16,15 +16,15 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Introduction
+## Introduction - Paper2
 
 AcousticBrainz Genre Task 2018: Genre and subgenre prediction of unkown music recordings (songs)
 
 Detail: Content-based musicgenre recognition using genre annotations from multiple sources and large-scale music features data available in the AcousticBrainz database.
 
-## Approach
+## Approach - Paper2
 
-Paper2: MediaEval 2018 AcousticBrainz Genre Task: A baseline combining deep feature embeddings across datasets
+Title: MediaEval 2018 AcousticBrainz Genre Task: A baseline combining deep feature embeddings across datasets
 
 Written by Sergio Oramas, Dmitry Bogdanov, Alastair Porter
 
