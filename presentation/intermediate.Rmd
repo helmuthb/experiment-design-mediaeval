@@ -1,0 +1,77 @@
+---
+title: "Experiment Design - Exercise2"
+subtitle: "Survey of Graph Databases"
+author: |
+  | Group 04
+  | Helmuth Breitenfellner (e8725866)
+  | Laszlo Kiraly (e9227679)
+  | Gerald Weber (e0125536)
+date: "2019-01-16"
+output:
+  beamer_presentation:
+    theme: "Goettingen"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+
+AcousticBrainz Genre Task 2018: Genre and subgenre prediction of unkown music recordings (songs)
+
+Detail: Content-based musicgenre recognition using genre annotations from multiple sources and large-scale music features data available in the AcousticBrainz database.
+
+## Approach
+
+Paper2: MediaEval 2018 AcousticBrainz Genre Task: A baseline combining deep feature embeddings across datasets
+
+Written by Sergio Oramas, Dmitry Bogdanov, Alastair Porter
+
+Presented MediaEval’18, 29-31 October 2018, Sophia Antipolis, France
+
+## Available Resources
+
+AcousticBrainz Genre Task site: [(link)](https://multimediaeval.github.io/2018-AcousticBrainz-Genre-Task/)
+
+Baseline Implementation: [Github Repository (link)](https://github.com/MTG/acousticbrainz-mediaeval-baselines)
+which links to a specific version of Sergio Oramas Github Repo "Tartarus".
+
+Datasets: Zenodo
+[Ground truth (restricted)](https://zenodo.org/record/2554044)
+[Genre annotations](https://zenodo.org/record/2553414)
+
+
+## Reproducability #1
+
+Linked Github repo "Tartarus" does suggest 3 different experiments for other datasets/papers.
+
+Idea: Identify the most identical experiment and try to reproduce with AcousticBrainz dataset.
+
+Kindly asked main author to provide a bit more information how to run.
+
+## Reproducability #2
+
+Loading datasets of other experiments cumbersome
+- MSD-A: Million Song Dataset for Artists gDrive
+- MuMu: Multimodal Music Dataset v3 (MSD + Amazon Reviews + MusicBrainz)
+- MSD-I: Audio,images and genre annotations
+
+Only 2 out of 3 experiments even starts.
+
+<!-- ## Reproducability #3 -->
+
+<!-- Try to identify experiment based on task/dataset similarity. -->
+
+<!-- Run the other experiments is the same as mentioned in paper. -->
+
+## Outlook
+
+Wait for feedback of author.
+
+Meanwhile: Try to apply code of referenced experiments to our dataset.
+
+## End
+
+Questions? Suggestions?
+
