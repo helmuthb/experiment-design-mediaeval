@@ -4,10 +4,18 @@ from math import sqrt
 from multiprocessing import Array, Process, Queue
 from glob import glob
 from os import makedirs
+import logging
 
 import numpy as np
 import pandas as pd
 
+logging.basicConfig(
+    format='%(asctime)s %(levelname)-8s %(message)s',
+    level=logging.INFO,
+    datefmt='%H:%M:%S')
+    # datefmt='%Y-%m-%d %H:%M:%S')
+
+max_rows = 10
 datasets = ["allmusic", "tagtraum", "discogs", "lastfm"]
 modes = ["train", "validation"]
 categorical_features = ["key_key", "key_scale", "chords_key", "chords_scale"]
@@ -36,6 +44,7 @@ def get_nested_dict_values(d):
 def process_observation(row, mode, dataset, sum_x, sum_x2, queue):
     mbid = row[0]
     genres = row[2:]
+    # logging.info(f"{data_dir}/acousticbrainz-mediaeval-{mode}/{mbid[:2]}/{mbid}.json")
     with open(f"{data_dir}/acousticbrainz-mediaeval-{mode}/{mbid[:2]}/{mbid}.json", "r") as file:
         observation = load(file)
     observation.pop("metadata", None)  # metadata contains non-numeric data which is largely not present in the test set
@@ -78,7 +87,7 @@ def write_output(queue):
 
 
 def main():
-    pool = []
+    # pool = []
     features_dim = 2669
     # -- sum_x and sum_x2 are the cumulative sum (of squares) of all features. these values are needed to compute the
     # -- mean and standard deviation in a memory-efficient manner after all observations have been passed
@@ -86,50 +95,58 @@ def main():
     sum_x2 = Array('d', features_dim)
     n = 0
     output_queue = Queue()
-    concurrent_processes = 24
-    consumer = Process(target=write_output, args=(output_queue,))
-    consumer.start()
+    # concurrent_processes = 24
+    # consumer = Process(target=write_output, args=(output_queue,))
+    # consumer.start()
     for dataset in datasets:
         for mode in modes:
-            print(f"Preprocessing {mode} mode of {dataset} dataset")
+            logging.info(f"Preprocessing {mode} mode of {dataset} dataset")
             makedirs(f"{processed_dir}/{mode}", exist_ok=True)
             with open(f"{data_dir}/acousticbrainz-mediaeval-{dataset}-{mode}.tsv", 'r') as dataset_file:
                 rows = reader(dataset_file, delimiter="\t")
                 next(rows)
+                row_counter = 0
                 for row in rows:
-                    if len(pool) >= concurrent_processes:
-                        for p in pool:
-                            p.join()
-                        pool = []
-                    p = Process(target=process_observation, args=(row, mode, dataset, sum_x, sum_x2, output_queue))
-                    p.start()
-                    pool.append(p)
+                    if row_counter > max_rows:
+                        break
+                    # if len(pool) >= concurrent_processes:
+                    #     for p in pool:
+                    #         p.join()
+                    #     pool = []
+                    # p = Process(target=process_observation, args=(row, mode, dataset, sum_x, sum_x2, output_queue))
+                    # p.start()
+                    # pool.append(p)
+                    process_observation(row, mode, dataset, sum_x, sum_x2, output_queue)
                     n += 1
-    for p in pool:
-        p.join()
+                    row_counter += 1
+                    if row_counter % 100 == 0:
+                        logging.info(f"Row counter: {row_counter}")
+    # for p in pool:
+    #     p.join()
     output_queue.put(None)
-    consumer.join()
-    print("Finished first preprocessing pass")
+    write_output(output_queue)
+    # consumer.join()
+    logging.info("Finished first preprocessing pass")
 
     means = []
     sdevs = []
     for i in range(features_dim):
         mean = sum_x[i] / n
-        sd = sqrt((sum_x2[i] / n) - (mean * mean))
+        sd = sqrt(max(0, (sum_x2[i] / n) - (mean * mean)))
         means.append(mean)
         sdevs.append(sd)
     with open(f"{processed_dir}/means.csv", 'w') as file:
         file.write(",".join(map(str, means)))
     with open(f"{processed_dir}/sdevs.csv", 'w') as file:
         file.write(",".join(map(str, sdevs)))
-    print("Calculated means and standard deviations")
-
-    print("Scale preprocessed datasets")
+    logging.info("Calculated means and standard deviations")
+   
+    logging.info("Scale preprocessed datasets")
     rows_to_read = 350000
     for dataset in datasets:
         for mode in modes:
             file_path = f"{processed_dir}/{mode}/{dataset}"
-            print(f"Scaling {file_path}")
+            logging.info(f"Scaling {file_path}")
             row_number = 0
             while True:
                 try:
