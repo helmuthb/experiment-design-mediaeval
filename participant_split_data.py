@@ -149,7 +149,7 @@ def main(filename, trainsplit, minimum_num_tags_train, rgfilter):
 def dump_subset(dataset, filename):
     max_genres = find_max_number_of_genres(dataset)
     header = ["recordingmbid", "releasegroupmbid"] + genre_headers(max_genres)
-    with open(filename, "w") as fp:
+    with open(filename, "wb") as fp:
         w = csv.writer(fp, delimiter="\t")
         w.writerow(header)
         w.writerows(dataset)
