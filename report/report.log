@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  1 FEB 2020 14:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  1 FEB 2020 15:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1142,7 +1142,6 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 35.
 LaTeX Info: Redefining \pageref on input line 35.
 LaTeX Info: Redefining \nameref on input line 35.
- (/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.out) (/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.out)
 \@outlinefile=\write5
 \openout5 = `report.out'.
 
@@ -1261,6 +1260,9 @@ Class acmart Warning: \vspace should only be used to provide space above/below s
 Class acmart Warning: \vspace should only be used to provide space above/below surrounding objects on input line 87.
 
 
+Package natbib Warning: Citation `MediaEval1' on page 1 undefined on input line 90.
+
+
 Class acmart Warning: \vspace should only be used to provide space above/below surrounding objects on input line 92.
 
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
@@ -1298,7 +1300,7 @@ Class acmart Warning: \vspace should only be used to provide space above/below s
 
 Class acmart Warning: \vspace should only be used to provide space above/below surrounding objects on input line 147.
 
-<Preprocess-Data.png, id=74, 643.40375pt x 633.36626pt>
+<Preprocess-Data.png, id=25, 643.40375pt x 633.36626pt>
 File: Preprocess-Data.png Graphic file (type png)
  <use Preprocess-Data.png>
 Package pdftex.def Info: Preprocess-Data.png used on input line 149.
@@ -1320,46 +1322,206 @@ Overfull \hbox (122.68729pt too wide) in paragraph at lines 162--163
 
 Class acmart Warning: \vspace should only be used to provide space above/below surrounding objects on input line 165.
 
+/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.tex:170: Missing $ inserted.
+<inserted text> 
+                $
+l.170   \item python run\_experiments.py genre_
+                                               allmusic
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
 
-Class acmart Warning: \vspace should only be used to provide space above/below surrounding objects on input line 176.
+
+/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.tex:171: LaTeX Error: Command \item invalid in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.171   \item
+              python run\_experiments.py genres_discogs
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
 
-Class acmart Warning: \vspace should only be used to provide space above/below surrounding objects on input line 178.
+/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.tex:171: LaTeX Error: Something's wrong--perhaps a missing \item.
 
-(/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.bbl
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.171   \item p
+               ython run\_experiments.py genres_discogs
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
-Class acmart Warning: \vspace should only be used to provide space above/below surrounding objects on input line 1.
 
-)
+/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.tex:171: LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.171   \item p
+               ython run\_experiments.py genres_discogs
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.tex:172: LaTeX Error: Command \item invalid in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.172   \item
+              ...
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.tex:172: Missing $ inserted.
+<inserted text> 
+                $
+l.172   \item .
+               ..
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.tex:172: Missing } inserted.
+<inserted text> 
+                }
+l.172   \item .
+               ..
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Overfull \hbox (76.6128pt too wide) in paragraph at lines 170--172
+[]\T1/LinuxLibertineT-TLF/m/n/9 (-20) python run_experiments.py genre$[]\OML/nxlmi/m/it/9 llmusicpythonrun[]experiments:pygenres[]iscogs[][]$ 
+ []
+
+/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.tex:172: Extra }, or forgotten \endgroup.
+\par ...m \@noitemerr {\@@par }\fi \else {\@@par }
+                                                  \fi 
+l.172   \item .
+               ..
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.tex:173: Missing $ inserted.
+<inserted text> 
+                $
+l.173   \item python run\_experiments.py genres_
+                                                allmusic_multimodal part of ...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.tex:174: LaTeX Error: Command \end{itemize} invalid in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.174 \end{itemize}
+                   
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.tex:174: LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.174 \end{itemize}
+                   
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.tex:174: LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.174 \end{itemize}
+                   
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.tex:174: Missing $ inserted.
+<inserted text> 
+                $
+l.174 \end{itemize}
+                   
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Overfull \hbox (77.94087pt too wide) in paragraph at lines 173--175
+[]\T1/LinuxLibertineT-TLF/m/n/9 (-20) python run_experiments.py genres$[]\OML/nxlmi/m/it/9 llmusic[]ultimodalpartofourReproducibilityrun\OT1/LinuxLibertineT-TLF/m/n/9 (-20) ???$ 
+ []
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below surrounding objects on input line 181.
+
+
+Class acmart Warning: \vspace should only be used to provide space above/below surrounding objects on input line 183.
+
+No file report.bbl.
+
+Package natbib Warning: There were undefined citations.
+
 
 Class acmart Warning: Some images may lack descriptions.
 
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 186.
+(Font)              scaled to size 9.0pt on input line 191.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 186.
+(Font)              scaled to size 7.0pt on input line 191.
 [2.2 </Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/Preprocess-Data.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 186.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 186.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 191.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 191.
  (/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 186.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 186.
-Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 35C018CF609F938C99AB95E567E425BE;1635.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 191.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 191.
+
+
+Package rerunfilecheck Warning: File `report.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `report.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  E0CB94EF07A7CABA232232F8308FB9F5;1540.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
- 18606 strings out of 493014
- 278782 string characters out of 6133351
- 405377 words of memory out of 5000000
- 21468 multiletter control sequences out of 15000+600000
- 112707 words of font info for 167 fonts, out of 8000000 for 9000
+ 18597 strings out of 493014
+ 278239 string characters out of 6133351
+ 405130 words of memory out of 5000000
+ 21453 multiletter control sequences out of 15000+600000
+ 116914 words of font info for 181 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  60i,11n,94p,797b,433s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinBiolinumT.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinBiolinumTB.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinLibertineT.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinLibertineTB.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinLibertineTI.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/txfonts/txsy.pfb>
-Output written on /Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.pdf (2 pages, 370024 bytes).
+{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_c7kyj5.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/newtx/libertinealt.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinBiolinumT.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinBiolinumTB.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinLibertineT.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinLibertineTB.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/libertine/LinLibertineTI.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/newtx/fxlri-7letters.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/newtx/zxlri.pfb>
+Output written on /Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.pdf (2 pages, 467399 bytes).
 PDF statistics:
- 142 PDF objects out of 1000 (max. 8388607)
- 118 compressed objects within 2 object streams
- 26 named destinations out of 1000 (max. 500000)
- 35958 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 124 PDF objects out of 1000 (max. 8388607)
+ 93 compressed objects within 1 object stream
+ 24 named destinations out of 1000 (max. 500000)
+ 37910 words of extra memory for PDF output out of 42996 (max. 10000000)
 
