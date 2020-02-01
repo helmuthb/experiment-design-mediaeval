@@ -13,11 +13,10 @@ logging.basicConfig(
     format='%(asctime)s %(levelname)-8s %(message)s',
     level=logging.INFO,
     datefmt='%H:%M:%S')
-    # datefmt='%Y-%m-%d %H:%M:%S')
 
 max_rows = 10
 datasets = ["allmusic", "tagtraum", "discogs", "lastfm"]
-modes = ["train", "validation"]
+modes = ["train-train", "train-test", "validation"]
 categorical_features = ["key_key", "key_scale", "chords_key", "chords_scale"]
 categorical_levels = {"key_key": ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"],
                       "key_scale": ["minor", "major"],
@@ -26,9 +25,12 @@ categorical_levels = {"key_key": ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F"
 data_dir = "data"
 processed_dir = "processed"
 
-with open("data/genres.txt", "r") as file:
-    all_genres = file.read().split(";")
-
+all_genres = {}
+for ds in datasets:
+    with open(f"data/acousticbrainz-mediaeval2017-{ds}-train.stats.csv.stats") as file:
+        lines = file.readlines()
+        lines.pop(0)
+        all_genres[ds] = [(l.split("\t"))[0] for l in lines]
 
 def get_nested_dict_values(d):
     if isinstance(d, dict):
@@ -44,7 +46,8 @@ def get_nested_dict_values(d):
 def process_observation(row, mode, dataset, sum_x, sum_x2, cnt_x, queue):
     mbid = row[0]
     genres = row[2:]
-    with open(f"{data_dir}/acousticbrainz-mediaeval-{mode}/{mbid[:2]}/{mbid}.json", "r") as file:
+    folder = (mode.split('-'))[0]
+    with open(f"{data_dir}/acousticbrainz-mediaeval-{folder}/{mbid[:2]}/{mbid}.json", "r") as file:
         observation = load(file)
     observation.pop("metadata", None)  # metadata contains non-numeric data which is largely not present in the test set
     observation["rhythm"].pop("beats_position", None)  # beats_position seems to be removed, probably because it is of variable length
@@ -61,7 +64,11 @@ def process_observation(row, mode, dataset, sum_x, sum_x2, cnt_x, queue):
         features.pop(feature_ix)
         features[feature_ix:feature_ix] = one_hot_encoded
     features.insert(0, mbid)  # insert observation id in resulting feature set
-    genres_encoded = [all_genres.index(genre) for genre in genres if genre in all_genres]
+    uniq_genres = set(genres) & set(all_genres[dataset])
+    genres_indexes = [all_genres[dataset].index(g) for g in uniq_genres]
+    genres_encoded = [0 for i in range(len(all_genres[dataset]))]
+    for g in genres_indexes:
+        genres_encoded[g] = 1
     genres_encoded.insert(0, mbid)
     for i in range(len(features) - 1):
         if not np.isnan(features[i+1]):
@@ -78,11 +85,12 @@ def write_output(queue):
         if item is None:
             break
         mode = item[0]
+        folder = (mode.split('-'))[0]
         dataset = item[1]
         features = item[2]
         genres = item[3]
-        with open(f"{processed_dir}/{mode}/{dataset}.csv", "a") as features_file,\
-                open(f"{processed_dir}/{mode}/{dataset}.genres.csv", "a") as genres_file:
+        with open(f"{processed_dir}/{folder}/{dataset}-{mode}.csv", "a") as features_file,\
+                open(f"{processed_dir}/{folder}/{dataset}-{mode}.genres.csv", "a") as genres_file:
             features_file.write(features)
             genres_file.write(genres)
 
@@ -97,9 +105,10 @@ def main():
     output_queue = Queue()
     for dataset in datasets:
         for mode in modes:
+            folder = (mode.split('-'))[0]
             logging.info(f"Preprocessing {mode} mode of {dataset} dataset")
             row_counter = 0
-            makedirs(f"{processed_dir}/{mode}", exist_ok=True)
+            makedirs(f"{processed_dir}/{folder}", exist_ok=True)
             with open(f"{data_dir}/acousticbrainz-mediaeval-{dataset}-{mode}.tsv", 'r') as dataset_file:
                 rows = reader(dataset_file, delimiter="\t")
                 next(rows)
@@ -134,7 +143,8 @@ def main():
     rows_to_read = 350000
     for dataset in datasets:
         for mode in modes:
-            file_path = f"{processed_dir}/{mode}/{dataset}"
+            folder = (mode.split('-'))[0]
+            file_path = f"{processed_dir}/{folder}/{dataset}-{mode}"
             logging.info(f"Scaling {file_path}")
             row_number = 0
             while True:
