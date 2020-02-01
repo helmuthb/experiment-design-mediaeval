@@ -1,6 +1,6 @@
 from csv import reader
 from json import load
-from math import sqrt
+from math import sqrt, isnan
 from multiprocessing import Array, Process, Queue
 from glob import glob
 from os import makedirs
@@ -33,14 +33,14 @@ def get_nested_dict_values(d):
         yield d
 
 
-def process_observation(row, mode, dataset, sum_x, sum_x2, queue):
+def process_observation(row, mode, dataset, sum_x, sum_x2, cnt_x, queue):
     mbid = row[0]
     genres = row[2:]
     with open(f"{data_dir}/acousticbrainz-mediaeval-{mode}/{mbid[:2]}/{mbid}.json", "r") as file:
         observation = load(file)
     observation.pop("metadata", None)  # metadata contains non-numeric data which is largely not present in the test set
     observation["rhythm"].pop("beats_position", None)  # beats_position seems to be removed, probably because it is of variable length
-    observation["rhythm"]["beats_loudness"].pop("median", None) # beats_loudness*.median is missing in some observations
+    # observation["rhythm"]["beats_loudness"].pop("median", None) # beats_loudness*.median is missing in some observations
     observation["rhythm"]["beats_loudness_band_ratio"].pop("median", None)
     features = list(get_nested_dict_values(observation))
     # -- one hot encode all remaining categorical values inplace
@@ -56,8 +56,10 @@ def process_observation(row, mode, dataset, sum_x, sum_x2, queue):
     genres_encoded = [all_genres.index(genre) for genre in genres if genre in all_genres]
     genres_encoded.insert(0, mbid)
     for i in range(len(features) - 1):
-        sum_x[i] += features[i + 1]
-        sum_x2[i] += features[i + 1] ** 2
+        if not np.isnan(features[i+1]):
+            sum_x[i] += features[i + 1]
+            sum_x2[i] += features[i + 1] ** 2
+            cnt_x[i] += 1
     queue.put((mode, dataset, str(features)[1:-1] + "\n", str(genres_encoded)[1:-1] + "\n"))
 
 
@@ -79,12 +81,12 @@ def write_output(queue):
 
 def main():
     pool = []
-    features_dim = 2668
+    features_dim = 2669
     # -- sum_x and sum_x2 are the cumulative sum (of squares) of all features. these values are needed to compute the
     # -- mean and standard deviation in a memory-efficient manner after all observations have been passed
     sum_x = Array('d', features_dim)
     sum_x2 = Array('d', features_dim)
-    n = 0
+    cnt_x = Array('d', features_dim)
     output_queue = Queue()
     concurrent_processes = 24
     consumer = Process(target=write_output, args=(output_queue,))
@@ -101,10 +103,9 @@ def main():
                         for p in pool:
                             p.join()
                         pool = []
-                    p = Process(target=process_observation, args=(row, mode, dataset, sum_x, sum_x2, output_queue))
+                    p = Process(target=process_observation, args=(row, mode, dataset, sum_x, sum_x2, cnt_x, output_queue))
                     p.start()
                     pool.append(p)
-                    n += 1
     for p in pool:
         p.join()
     output_queue.put(None)
@@ -114,8 +115,8 @@ def main():
     means = []
     sdevs = []
     for i in range(features_dim):
-        mean = sum_x[i] / n
-        sd = sqrt((sum_x2[i] / n) - (mean * mean))
+        mean = sum_x[i] / cnt_x[i] 
+        sd = sqrt((sum_x2[i] / cnt_x[i]) - (mean * mean))
         means.append(mean)
         sdevs.append(sd)
     with open(f"{processed_dir}/means.csv", 'w') as file:
@@ -139,6 +140,7 @@ def main():
                 row_number += rows_to_read
                 df -= means
                 df /= sdevs
+                df.fillna(0)
                 df.to_csv(f"{file_path}.clean.std.csv", mode="a", index=True, header=False)
 
 
