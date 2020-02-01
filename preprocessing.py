@@ -13,10 +13,10 @@ logging.basicConfig(
     format='%(asctime)s %(levelname)-8s %(message)s',
     level=logging.INFO,
     datefmt='%H:%M:%S')
-    # datefmt='%Y-%m-%d %H:%M:%S')
 
 max_rows = 10
 datasets = ["allmusic", "tagtraum", "discogs", "lastfm"]
+sizes = [766, 296, 315, 327]
 modes = ["train-train", "train-test", "validation"]
 categorical_features = ["key_key", "key_scale", "chords_key", "chords_scale"]
 categorical_levels = {"key_key": ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"],
@@ -41,7 +41,7 @@ def get_nested_dict_values(d):
         yield d
 
 
-def process_observation(row, mode, dataset, sum_x, sum_x2, cnt_x, queue):
+def process_observation(row, mode, size, dataset, sum_x, sum_x2, cnt_x, queue):
     mbid = row[0]
     genres = row[2:]
     folder = (mode.split('-'))[0]
@@ -63,6 +63,9 @@ def process_observation(row, mode, dataset, sum_x, sum_x2, cnt_x, queue):
         features[feature_ix:feature_ix] = one_hot_encoded
     features.insert(0, mbid)  # insert observation id in resulting feature set
     genres_encoded = [all_genres.index(genre) for genre in genres if genre in all_genres]
+    # Hack to bring them to same length
+    while len(genres_encoded) < size:
+        genres_encoded.append(-1)
     genres_encoded.insert(0, mbid)
     for i in range(len(features) - 1):
         if not np.isnan(features[i+1]):
@@ -98,7 +101,8 @@ def main():
     cnt_x = Array('d', features_dim)
     output_queue = Queue()
     for dataset in datasets:
-        for mode in modes:
+        for i, mode in enumerate(modes):
+            size = sizes[i]
             folder = (mode.split('-'))[0]
             logging.info(f"Preprocessing {mode} mode of {dataset} dataset")
             row_counter = 0
@@ -109,7 +113,7 @@ def main():
                 for row in rows:
                     if row_counter > max_rows:
                         break
-                    process_observation(row, mode, dataset, sum_x, sum_x2, cnt_x, output_queue)
+                    process_observation(row, mode, size, dataset, sum_x, sum_x2, cnt_x, output_queue)
                     row_counter += 1
                     if row_counter % 100 == 0:
                         logging.info(f"Row counter: {row_counter}")
