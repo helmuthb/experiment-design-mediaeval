@@ -19,3 +19,11 @@ Go to Data section of Mediaeval site, then to Download section. Click Google Dri
 [https://github.com/dbogdanov]
 
 [https://github.com/alastair]
+
+# Learnings
+
+- python 3 for preprocessing vs python 2 for training
+- theano backend: tensorflow vs keras: different orderings of dimensions in nn architecture!
+- steps:
+  - preprocessing.py
+  - create_h5.py
