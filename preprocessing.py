@@ -119,6 +119,9 @@ def main():
     for i in range(features_dim):
         mean = sum_x[i] / cnt_x[i] 
         sd = sqrt((sum_x2[i] / cnt_x[i]) - (mean * mean))
+        # sd == 0? set it to 1 for avoiding division by zero
+        if sd == 0.:
+            sd = 1.
         means.append(mean)
         sdevs.append(sd)
     with open(f"{processed_dir}/means.csv", 'w') as file:
@@ -143,7 +146,7 @@ def main():
                 df -= means
                 df /= sdevs
                 df.fillna(0)
-                df.to_csv(f"{file_path}.clean.std.csv", mode="a", index=True, header=False)
+                df.to_csv(f"{file_path}.features.clean.std.csv", mode="a", index=True, header=False)
 
 
 if __name__ == "__main__":
