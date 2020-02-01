@@ -75,7 +75,11 @@ def process_observation(row, mode, dataset, sum_x, sum_x2, cnt_x, queue):
             sum_x[i] += features[i + 1]
             sum_x2[i] += features[i + 1] ** 2
             cnt_x[i] += 1
-    queue.put((mode, dataset, str(features)[1:-1] + "\n", str(genres_encoded)[1:-1] + "\n"))
+    features_txt = str(features)[1:-1]
+    features_txt = features_txt.replace("'", "")
+    genres_txt = str(genres_encoded)[1:-1]
+    genres_txt = genres_txt.replace("'", "")
+    queue.put((mode, dataset, features_txt + "\n", genres_txt + "\n"))
 
 
 def write_output(queue):
