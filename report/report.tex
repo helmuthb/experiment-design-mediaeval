@@ -91,11 +91,11 @@ The paper is a baseline approach for the MediaEval 2018 AcousticBrainz Genre Tas
 
 \subsection{Datasets}
 
-The conference provides a website for the classification task\footnote{\href{https://multimediaeval.github.io/2018-AcousticBrainz-Genre-Task/}, seen on 2020-01-30} which describes the task, the schedule and the dataset on a subpage\footnote{\href{https://multimediaeval.github.io/2018-AcousticBrainz-Genre-Task/data/}, seen on 2020-01-30} in detail.
+The conference provides a website for the classification task\footnote{\url{https://multimediaeval.github.io/2018-AcousticBrainz-Genre-Task/}, seen on 2020-01-30} which describes the task, the schedule and the dataset on a subpage\footnote{\url{https://multimediaeval.github.io/2018-AcousticBrainz-Genre-Task/data/}, seen on 2020-01-30} in detail.
 This subpage contains multiple links:
 \begin{itemize}
-    \item Zenodo\footnote{\href{https://zenodo.org/record/2553414}, \href{https://zenodo.org/record/2554044}, seen on 2020-01-30} uploaded by Dmitry Bogdanov, Alastair Porter et al.
-    \item Google Drive\footnote{\href{https://drive.google.com/drive/folders/0B8wz5KkuLnI3RjFYSFY5TkJVU1U}} containing train/test/validation folders provided by Dmitry Bogdanov and Alastair Porter    
+    \item Zenodo\footnote{\url{https://zenodo.org/record/2553414}, \url{https://zenodo.org/record/2554044}, seen on 2020-01-30} uploaded by Dmitry Bogdanov, Alastair Porter et al.
+    \item Google Drive\footnote{\url{https://drive.google.com/drive/folders/0B8wz5KkuLnI3RjFYSFY5TkJVU1U}} containing train/test/validation folders provided by Dmitry Bogdanov and Alastair Porter    
 \end{itemize}
 
 
@@ -129,7 +129,7 @@ For each recordingmbid there exists a file the \textit{acousticbrainz-mediaeval-
 
 \section{Paper - Reproduction}
 
-The authors of the paper provided a link to a Github repository\footnote{\href{https://github.com/MTG/acousticbrainz-mediaeval-baselines}, seen on 2020-01-30} which contains a data-preparation folder and a link to another repository\footnote{\href{https://github.com/sergiooramas/tartarus/tree/b214f66dd4e61e83edc45ffc5c280efe7318a1b6}, seen on 2020-01-30}. 
+The authors of the paper provided a link to a Github repository\footnote{\url{https://github.com/MTG/acousticbrainz-mediaeval-baselines}, seen on 2020-01-30} which contains a data-preparation folder and a link to another repository\footnote{\url{https://github.com/sergiooramas/tartarus/tree/b214f66dd4e61e83edc45ffc5c280efe7318a1b6}, seen on 2020-01-30}. 
 This linked repository contains three experiments written by Oramas et al. . Based on the description of the experiments and on the number of features described in the paper (2669) we could identify experiment 3: \textit{TISMIR Experiments (Single\-label Classification)}\footnote{denoted in the run\_experiments.py as \textit{ISMIR 2019 Experiments (Baseline for AcousticBrainz Genre Dataset Classification)}} as the baseline approach.
 
 With this information we inspected the \textit{data\-preparation/create\_h5.py} file to find out how to prepare the data. The existing file \textit{data-preparation/create\_h5.py} requires some \textit{.features.clean.std.csv} and \textit{.clean.std.csv} as well as \textit{.genres.csv} as input. None of them is available in the dataset.
@@ -139,7 +139,7 @@ Tries to contact the main author via two mail addresses (soramas@pandora.com, se
 
 \section{Reproducing \#2 - A new hope} 
 
-Some online research led us to a recently created Github repository\footnote{\href{https://github.com/nikuya3/acousticbrainz-mediaeval-baseline}, seen on 2020-01-30} which deals with the same paper. Additionally it has a preprocessing step included. Naturally, we cloned the repository and started \textit{}
+Some online research led us to a recently created Github repository\footnote{\url{https://github.com/nikuya3/acousticbrainz-mediaeval-baseline}, seen on 2020-01-30} which deals with the same paper. Additionally it has a preprocessing step included. Naturally, we cloned the repository and started \textit{}
 
 
 \subsection{Datasets}
