@@ -27,7 +27,7 @@ processed_dir = "processed"
 
 all_genres = {}
 for ds in datasets:
-    with open(f"data/acousticbrainz-mediaeval2017-{ds}-train.stats.csv.stats") as file:
+    with open(f"data_stats/acousticbrainz-mediaeval2017-{ds}-train.stats") as file:
         lines = file.readlines()
         lines.pop(0)
         all_genres[ds] = [(l.split("\t"))[0] for l in lines]
