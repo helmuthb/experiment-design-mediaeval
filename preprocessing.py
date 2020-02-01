@@ -100,8 +100,8 @@ def main():
     sum_x2 = Array('d', features_dim)
     cnt_x = Array('d', features_dim)
     output_queue = Queue()
-    for dataset in datasets:
-        for i, mode in enumerate(modes):
+    for i, dataset in enumerate(datasets):
+        for mode in modes:
             size = sizes[i]
             folder = (mode.split('-'))[0]
             logging.info(f"Preprocessing {mode} mode of {dataset} dataset")
