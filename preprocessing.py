@@ -71,10 +71,13 @@ def process_observation(row, mode, dataset, sum_x, sum_x2, cnt_x, queue):
         genres_encoded[g] = 1
     genres_encoded.insert(0, mbid)
     for i in range(len(features) - 1):
-        if not np.isnan(features[i+1]):
-            sum_x[i] += features[i + 1]
-            sum_x2[i] += features[i + 1] ** 2
-            cnt_x[i] += 1
+        try:
+            if not np.isnan(features[i+1]):
+                sum_x[i] += features[i + 1]
+                sum_x2[i] += features[i + 1] ** 2
+                cnt_x[i] += 1
+        except:
+            pass
     features_txt = str(features)[1:-1]
     features_txt = features_txt.replace("'", "")
     genres_txt = str(genres_encoded)[1:-1]
