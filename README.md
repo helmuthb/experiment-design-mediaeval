@@ -20,6 +20,67 @@ Go to Data section of Mediaeval site, then to Download section. Click Google Dri
 
 [https://github.com/alastair]
 
+# Step by Step
+
+```
+git clone https://github.com/websta/experiment-design-mediaeval-ws2019
+```
+
+get data
+```
+git clone https://github.com/multimediaeval/2017-AcousticBrainz-Genre-Task
+cp 2017-AcousticBrainz-Genre-Task/data_stats/* experiment-design-mediaeval-ws2019/data/
+```
+
+create environments
+```
+conda create -n exp-preprocess-python3 python=3.7
+conda activate exp-preprocess-python3
+conda install h5py
+conda install pandas
+
+conda create -n exp-preprocess-python2 python=2.7
+```
+
+execute scripts
+```
+cd experiment-design-mediaeval-ws2019
+conda activate exp-preprocess-python2
+./split-train-test.sh
+conda activate exp-preprocess-python3
+./run-preprocess.sh
+conda activate exp-preprocess-python2
+./run-create-h5.sh
+cd ..
+```
+
+```
+git clone https://github.com/sergiooramas/tartarus
+cd tartarus
+git checkout b214f66dd4e61e83edc45ffc5c280efe7318a1b6
+conda create -n exp-train-python2 python=2.7
+conda activate exp-train-python2
+pip install -r requirements.txt
+cd ..
+```
+
+in `src/common.py` change
+```
+DATA_DIR = "/Users/Sergio/webserver/tartarus/dummy-data"
+```
+
+to your data folder, e.g.
+```
+DATA_DIR = "../../experiment-design-mediaeval-ws2019/data-genres"
+```
+
+run experiment
+```
+cd src
+conda activate exp-train-python2
+python run_experiments.py genres_allmusic
+```
+
 # Learnings
 
 - python 3 for preprocessing vs python 2 for training
