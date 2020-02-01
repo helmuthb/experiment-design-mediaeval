@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex report"] 1580598448 "report.aux" "report.bbl" "report" 1580598452
+["bibtex report"] 1580598448 "report.aux" "report.bbl" "report" 1580598599
   "C:/Program Files/MiKTeX 2.9/bibtex/bst/bibtex/alpha.bst" 1291864736 23907 a5f93555796fb564b924339521f10a7c ""
   "bibliography.bib" 1580571762 284 dec85f8607996f93aac00ec12f229c00 ""
-  "report.aux" 1580598451 2750 52b53afca22f2be387290236f2b93784 "pdflatex"
+  "report.aux" 1580598597 2750 52b53afca22f2be387290236f2b93784 "pdflatex"
   (generated)
-  "report.bbl"
   "report.blg"
-["pdflatex"] 1580598449 "report.tex" "m:/projects/experiment-design-mediaeval-ws2019/report/report.pdf" "report" 1580598452
+  "report.bbl"
+["pdflatex"] 1580598594 "report.tex" "m:/projects/experiment-design-mediaeval-ws2019/report/report.pdf" "report" 1580598599
   "C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/libertine/lbtn_25tcsq.enc" 1497086288 2921 8ca0eb0831f9bc5da080d3697cfe67bf ""
   "C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/libertine/lbtn_76gpa5.enc" 1497086288 2933 9ad527ce78d7c5fa0a642dead095f172 ""
   "C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/libertine/lbtn_7grukw.enc" 1497086288 2934 a4a9158faed2e9e89c771b4e3b7fc12f ""
@@ -162,15 +162,15 @@
   "C:/Users/Laszlo/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map" 1572686986 168392 a609e23e5c0cd29edd8099d3979da057 ""
   "Preprocess-Data.png" 1580571762 49393 7264e0fa5691344dbc4739360abecd0d ""
   "acmart.cls" 1580571762 99498 bfae6004bc6feb547004a07a80ce8316 ""
-  "m:/projects/experiment-design-mediaeval-ws2019/report/report.aux" 1580598451 2750 52b53afca22f2be387290236f2b93784 ""
-  "report.aux" 1580598451 2750 52b53afca22f2be387290236f2b93784 "pdflatex"
+  "m:/projects/experiment-design-mediaeval-ws2019/report/report.aux" 1580598597 2750 52b53afca22f2be387290236f2b93784 ""
+  "report.aux" 1580598597 2750 52b53afca22f2be387290236f2b93784 "pdflatex"
   "report.bbl" 1580598449 305 08ba2c9768dd651a014f16f0cd4ac172 "bibtex report"
-  "report.out" 1580598451 1737 462c72326618cfaf11dc16f7652a677e "pdflatex"
-  "report.tex" 1580598442 9251 f934a41d678d1cf5252ef5619c0405a6 ""
+  "report.out" 1580598597 1737 462c72326618cfaf11dc16f7652a677e "pdflatex"
+  "report.tex" 1580598591 9318 d61715601c24646e14cbc815ebb81ac1 ""
   (generated)
-  "report.pdf"
-  "m:/projects/experiment-design-mediaeval-ws2019/report/report.pdf"
-  "m:/projects/experiment-design-mediaeval-ws2019/report/report.log"
-  "report.log"
   "report.out"
+  "m:/projects/experiment-design-mediaeval-ws2019/report/report.pdf"
   "report.aux"
+  "m:/projects/experiment-design-mediaeval-ws2019/report/report.log"
+  "report.pdf"
+  "report.log"
