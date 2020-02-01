@@ -81,6 +81,36 @@ conda activate exp-train-python2
 python run_experiments.py genres_allmusic
 ```
 
+# GPU
+
+not possible in windows 10 neither python 2.7 nor 3.7, pip or conda,..., e.g.:
+```
+conda install theano pygpu keras scikit-learn pandas
+$ python run_experiments.py genres_allmusic
+Using Theano backend.
+ERROR (theano.gpuarray): Could not initialize pygpu, support disabled
+Traceback (most recent call last):
+  File "C:\Users\Laszlo\Anaconda3\envs\pygpu_python3\lib\site-packages\theano\gpuarray\__init__.py", line 227, in <module>
+    use(config.device)
+  File "C:\Users\Laszlo\Anaconda3\envs\pygpu_python3\lib\site-packages\theano\gpuarray\__init__.py", line 214, in use
+    init_dev(device, preallocate=preallocate)
+  File "C:\Users\Laszlo\Anaconda3\envs\pygpu_python3\lib\site-packages\theano\gpuarray\__init__.py", line 99, in init_dev
+    **args)
+  File "pygpu\gpuarray.pyx", line 658, in pygpu.gpuarray.init
+  File "pygpu\gpuarray.pyx", line 587, in pygpu.gpuarray.pygpu_init
+pygpu.gpuarray.GpuArrayException: b'Could not load "nvrtc64_70.dll": The specified module could not be found.\r\n'
+Traceback (most recent call last):
+  File "run_experiments.py", line 1, in <module>
+    from train import process
+  File "M:\projects\tartarus_python3\src\train.py", line 20, in <module>
+    import models
+  File "M:\projects\tartarus_python3\src\models.py", line 1, in <module>
+    from keras.layers import Dense, Dropout, Activation, Flatten, Permute, Lambda, Input, merge, BatchNormalization, Embedding, LSTM, Bidirectional, Reshape, GRU, Merge, ELU
+ImportError: cannot import name 'Merge' from 'keras.layers' (C:\Users\Laszlo\Anaconda3\envs\pygpu_python3\lib\site-packages\keras\layers\__init__.py)
+(pygpu_python3) 
+```
+-> can't install older nvidia driver / cuda on latest windows 10?
+
 # Learnings
 
 - python 3 for preprocessing vs python 2 for training
