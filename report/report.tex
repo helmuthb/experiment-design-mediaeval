@@ -144,6 +144,35 @@ Some online research led us to a recently created Github repository\footnote{\ur
 
 \subsection{Datasets}
 
+\subsection{Preprocessing}
+  \begin{figure}
+    \includegraphics[width=\linewidth]{Preprocess-Data.png}
+    \caption{Preprocessing Data.}
+    \label{fig:preprocess}
+  \end{figure}
+
+  \begin{itemize}
+    \item preprocessing.py python3
+    \item participant\_split\_data.py
+    \item create\_h5.py python2 with h5py
+  \end{itemize}
+
+  Problems:
+  \begin{itemize}
+    \item TypeError: No conversion path for dtype: dtype('<U38') https://github.com/h5py/h5py/issues/1131 -> solved with using python2
+  \end{itemize}
+
+\subsection{Train}
+
+\begin{itemize}
+  \item run\_experiment python3
+\end{itemize}
+
+Problems:
+\begin{itemize}
+  \item ValueError: Error when checking target: expected dense\_5 to have shape (766,) but got array with shape (1,)
+\end{itemize}
+
 \subsection{Sources}
 
 \subsection{Doing}

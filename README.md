@@ -25,5 +25,9 @@ Go to Data section of Mediaeval site, then to Download section. Click Google Dri
 - python 3 for preprocessing vs python 2 for training
 - theano backend: tensorflow vs keras: different orderings of dimensions in nn architecture!
 - steps:
-  - preprocessing.py
+  - preprocessing.py python 3
+  - participant_split_data.py python 2 or 3 with h5py
   - create_h5.py
+    - https://github.com/h5py/h5py/issues/1131
+  - run_experiment python 3
+    - ValueError: Error when checking target: expected dense_5 to have shape (766,) but got array with shape (1,)
