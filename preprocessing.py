@@ -17,7 +17,7 @@ logging.basicConfig(
 
 max_rows = 10
 datasets = ["allmusic", "tagtraum", "discogs", "lastfm"]
-modes = ["train", "validation"]
+modes = ["train-train", "train-test", "validation"]
 categorical_features = ["key_key", "key_scale", "chords_key", "chords_scale"]
 categorical_levels = {"key_key": ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"],
                       "key_scale": ["minor", "major"],
@@ -44,7 +44,8 @@ def get_nested_dict_values(d):
 def process_observation(row, mode, dataset, sum_x, sum_x2, cnt_x, queue):
     mbid = row[0]
     genres = row[2:]
-    with open(f"{data_dir}/acousticbrainz-mediaeval-{mode}/{mbid[:2]}/{mbid}.json", "r") as file:
+    folder = (mode.split('-'))[0]
+    with open(f"{data_dir}/acousticbrainz-mediaeval-{folder}/{mbid[:2]}/{mbid}.json", "r") as file:
         observation = load(file)
     observation.pop("metadata", None)  # metadata contains non-numeric data which is largely not present in the test set
     observation["rhythm"].pop("beats_position", None)  # beats_position seems to be removed, probably because it is of variable length
@@ -78,11 +79,12 @@ def write_output(queue):
         if item is None:
             break
         mode = item[0]
+        folder = (mode.split('-'))[0]
         dataset = item[1]
         features = item[2]
         genres = item[3]
-        with open(f"{processed_dir}/{mode}/{dataset}.csv", "a") as features_file,\
-                open(f"{processed_dir}/{mode}/{dataset}.genres.csv", "a") as genres_file:
+        with open(f"{processed_dir}/{folder}/{dataset}-{mode}.csv", "a") as features_file,\
+                open(f"{processed_dir}/{folder}/{dataset}-{mode}.genres.csv", "a") as genres_file:
             features_file.write(features)
             genres_file.write(genres)
 
@@ -97,9 +99,10 @@ def main():
     output_queue = Queue()
     for dataset in datasets:
         for mode in modes:
+            folder = (mode.split('-'))[0]
             logging.info(f"Preprocessing {mode} mode of {dataset} dataset")
             row_counter = 0
-            makedirs(f"{processed_dir}/{mode}", exist_ok=True)
+            makedirs(f"{processed_dir}/{folder}", exist_ok=True)
             with open(f"{data_dir}/acousticbrainz-mediaeval-{dataset}-{mode}.tsv", 'r') as dataset_file:
                 rows = reader(dataset_file, delimiter="\t")
                 next(rows)
@@ -134,7 +137,8 @@ def main():
     rows_to_read = 350000
     for dataset in datasets:
         for mode in modes:
-            file_path = f"{processed_dir}/{mode}/{dataset}"
+            folder = (mode.split('-'))[0]
+            file_path = f"{processed_dir}/{folder}/{dataset}-{mode}"
             logging.info(f"Scaling {file_path}")
             row_number = 0
             while True:
