@@ -17,6 +17,13 @@
             "request": "launch",
             "program": "${workspaceFolder}/participant_split_data.py",
             "args" : ["-m", "0", "./data/acousticbrainz-mediaeval-allmusic-train.tsv"]
+        },
+        {
+            "name": "Python: Step 1 - Train embedded vector",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/step1/train.py",
+            "cwd": "${workspaceFolder}/step1"
         }
     ]
 }
