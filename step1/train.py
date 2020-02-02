@@ -1,6 +1,7 @@
 import click
 import h5py
 import numpy as np
+from pytorchtools import EarlyStopping
 import random
 import torch
 from torchvision import datasets
@@ -98,14 +99,15 @@ def batch_block_generator(dataset, batch_step, batch_size, y_path, N_train, id2g
                 yield (x_batch, y_batch)
 
 @click.command()
-@click.option("--epochs", default=2, help="Number of epochs.")
+@click.option("--epochs", default=100, help="Number of epochs.")
 @click.option("--batch_step", default=1, help="Batch Step.")
 @click.option("--batch_size", default=1, help="Batch Size.")
 @click.option("--num_workers", default=2, help="Number of Workers (at least 2 recommended).")
 @click.option("--seed", default=73, help="Seed.")
 @click.option("--dataset", default="discogs", help="Dataset: one of allmusic, tagtraum, discogs or lastfm.")
 @click.option("--y_path", default="class_315_discogs", help="Ys: one of class_766_allmusic, class_296_tagtraum, class_315_discogs or class_327_lastfm.")
-def train(epochs, batch_step, batch_size, num_workers, seed, dataset, y_path):
+@click.option("--patience", default=5, help="Patience is an early stopping parameter.")
+def train(epochs, batch_step, batch_size, num_workers, seed, dataset, y_path, patience):
 
     torch.manual_seed(seed)
 
@@ -127,7 +129,7 @@ def train(epochs, batch_step, batch_size, num_workers, seed, dataset, y_path):
 
     # sgd = optim.SGD(model.parameters(), lr=0.1, momentum=0.9, nesterov=True, weight_decay=1e-6)
     optimizer = optim.Adam(params=model.parameters(), lr=0.001, betas=(0.9, 0.999), eps=1e-08)
-    binary_cross_entropy_loss = nn.BCELoss()
+    criterion = nn.BCELoss()
 
     id2gt = dict()
     factors = np.load(common.DATASETS_DIR+'/y_train_'+y_path+'.npy')
@@ -135,30 +137,71 @@ def train(epochs, batch_step, batch_size, num_workers, seed, dataset, y_path):
     id2gt = dict((index,factor) for (index,factor) in zip(index_factors,factors))
     X_val, Y_val, X_test, Y_test, N_train = load_data_hf5_memory(dataset, 0.1, 0.1, y_path, id2gt)
 
-    # TODO early stopping
-    for epoch in range(epochs):
-        losses = []
+    validation_set = list(zip(X_val[:], Y_val[:]))
+
+    # see https://github.com/Bjarten/early-stopping-pytorch/blob/master/MNIST_Early_Stopping_example.ipynb
+    early_stopping = EarlyStopping(patience=patience, verbose=True)
+    train_losses = []
+    valid_losses = []
+    avg_train_losses = []
+    avg_valid_losses = [] 
+
+    for epoch in range(1, epochs + 1):
+
+        model.train()
         for index, data in enumerate(batch_block_generator(dataset, batch_step, batch_size,y_path,N_train,id2gt), 0):
 
             inputs, labels = torch.Tensor(data[0]).to(device), torch.Tensor(data[1]).to(device)
 
             optimizer.zero_grad()
 
-            outputs = model.forward(inputs)
+            outputs = model(inputs)
 
-            loss = binary_cross_entropy_loss(outputs, labels)
+            loss = criterion(outputs, labels)
 
             loss.backward()
 
             optimizer.step()
 
-            # TODO metrics = ['mean_squared_error']
-            losses.append(loss.data.mean())
+            train_losses.append(loss.item())
+
+        model.eval()
+        for data, target in validation_set:
+
+            output = model(torch.Tensor(data).to(device))
+
+            loss = criterion(output, torch.Tensor(target).to(device))
+
+            valid_losses.append(loss.item())
+
+        train_loss = np.average(train_losses)
+        valid_loss = np.average(valid_losses)
+        avg_train_losses.append(train_loss)
+        avg_valid_losses.append(valid_loss)
+        
+        epoch_len = len(str(epochs))
+        
+        print_msg = (f'[{epoch:>{epoch_len}}/{epochs:>{epoch_len}}] ' +
+                     f'train_loss: {train_loss:.5f} ' +
+                     f'valid_loss: {valid_loss:.5f}')
+        
+        print(print_msg)
+
+        train_losses = []
+        valid_losses = []
+        
+        early_stopping(valid_loss, model)
+        
+        if early_stopping.early_stop:
+            print("Early stopping")
+            break
+
+    model.load_state_dict(torch.load('checkpoint.pt'))
 
     weights = model.state_dict()['input.weight']
     file = f'{common.EMBEDDED_DIR}/embedded_vector_{dataset}.npy'
     np.save(file, weights.cpu().numpy())
-    print(f'embedded vector for {dataset} saved to {file}')
+    print(f'best embedded vector for {dataset} saved to {file}')
  
 if __name__ == "__main__":
     train()

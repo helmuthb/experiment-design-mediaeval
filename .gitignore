@@ -9,3 +9,6 @@ processed
 *.tsv
 *.npy
 __pycache__
+*.pt
+models
+settings.json
