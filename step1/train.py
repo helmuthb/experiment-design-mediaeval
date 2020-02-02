@@ -1,12 +1,13 @@
 import click
 import h5py
+import numpy as np
 import torch
 from torchvision import datasets
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 
-from common import DATASETS_DIR
+import common 
 from models import EmbeddedVectorModel
 
 def load_data_hf5_memory(dataset,val_percent, test_percent, y_path, id2gt):
@@ -105,9 +106,9 @@ def batch_block_generator(batch_size, y_path, N_train, id2gt):
 @click.option("--batch_size", default=64, help="Batch Size.")
 @click.option("--num_workers", default=2, help="Number of Workers (at least 2 recommended).")
 @click.option("--seed", default=73, help="Seed.")
-@click.option("--dataset", default="'discogs'", help="Dataset: one of allmusic, tagtraum, discogs or lastfm.")
-@click.option("--x_path", default="'class_315_discogs'", help="Xs: one of class_766_allmusic, class_296_tagtraum, class_315_discogs or class_327_lastfm.")
-@click.option("--y_path", default="'class_315_discogs'", help="Ys: one of class_766_allmusic, class_296_tagtraum, class_315_discogs or class_327_lastfm.")
+@click.option("--dataset", default="discogs", help="Dataset: one of allmusic, tagtraum, discogs or lastfm.")
+@click.option("--x_path", default="unused", help="unused")
+@click.option("--y_path", default="class_315_discogs", help="Ys: one of class_766_allmusic, class_296_tagtraum, class_315_discogs or class_327_lastfm.")
 def train(epochs, batch_size, num_workers, seed, dataset, x_path, y_path):
 
     torch.manual_seed(seed)
