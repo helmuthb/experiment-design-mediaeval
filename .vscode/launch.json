@@ -23,7 +23,10 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/step1/train.py",
-            "cwd": "${workspaceFolder}/step1"
+            "cwd": "${workspaceFolder}/step1",
+            "args" : [
+                "--batch_size", "1"
+            ]
         }
     ]
 }

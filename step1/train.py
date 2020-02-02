@@ -1,6 +1,7 @@
 import click
 import h5py
 import numpy as np
+import random
 import torch
 from torchvision import datasets
 import torch.nn as nn
@@ -52,8 +53,9 @@ def load_data_hf5_memory(dataset,val_percent, test_percent, y_path, id2gt):
     X_val = f['features'][N_train:N_train+N_val]
     index_val = f['index'][N_train:N_train+N_val]
     X_val = np.delete(X_val, np.where(index_val == ""), axis=0)
-    index_val = np.delete(index_val, np.where(index_val == ""))                
-    Y_val = np.asarray([id2gt[id] for id in index_val])
+    index_val = np.delete(index_val, np.where(index_val == ""))  
+    # 07c41ad0-3102-40d2-8f93-50fe5c08a3e8              
+    Y_val = np.asarray([id2gt[id.decode('utf-8')] for id in index_val])
     X_test = f['features'][N_train+N_val:N]
     index_test = f['index'][N_train+N_val:N]
     print(index_test.shape)
@@ -62,7 +64,7 @@ def load_data_hf5_memory(dataset,val_percent, test_percent, y_path, id2gt):
     index_test = np.delete(index_test, np.where(index_test == ""))                
     print(index_test.shape)
     print(X_test.shape)
-    Y_test = np.asarray([id2gt[id] for id in index_test])
+    Y_test = np.asarray([id2gt[id.decode('utf-8')] for id in index_test])
     print(Y_test.shape)
     index_train = f['index'][:N_train]
     index_train = np.delete(index_train, np.where(index_train == ""))
@@ -70,15 +72,13 @@ def load_data_hf5_memory(dataset,val_percent, test_percent, y_path, id2gt):
     
     return X_val, Y_val, X_test, Y_test, N_train
 
-def batch_block_generator(batch_size, y_path, N_train, id2gt):
+def batch_block_generator(dataset, batch_size, y_path, N_train, id2gt):
     hdf5_file = f"{common.PATCHES_DIR}/patches_train_{dataset}_1x1.hdf5"
     f = h5py.File(hdf5_file,"r")
     block_step = 50000
     batch_size = batch_size
     randomize = True
     with_meta = False
-    if X_meta != None:
-        with_meta = True
     while 1:
         for i in range(0, N_train, block_step):
             x_block = f['features'][i:min(N_train, i+block_step)]
@@ -86,10 +86,8 @@ def batch_block_generator(batch_size, y_path, N_train, id2gt):
             #y_block = f['targets'][i:min(N_train,i+block_step)]
             x_block = np.delete(x_block, np.where(index_block == ""), axis=0)
             index_block = np.delete(index_block, np.where(index_block == ""))
-            y_block = np.asarray([id2gt[id] for id in index_block])
-            if params['training']['normalize_y']:
-                normalize(y_block, copy=False)
-            items_list = range(x_block.shape[0])
+            y_block = np.asarray([id2gt[id.decode('utf-8')] for id in index_block])
+            items_list = list(range(x_block.shape[0]))
             if randomize:
                 random.shuffle(items_list)
             for j in range(0, len(items_list), batch_size):
@@ -125,38 +123,25 @@ def train(epochs, batch_size, num_workers, seed, dataset, x_path, y_path):
     print(f'Total params: {pytorch_total_params}')
     print(f'Trainable params: {pytorch_total_trainable_params}')
 
-    # # throws warning
-    # print(F.binary_cross_entropy(F.softmax(pred), y))
-    # # doesn't throw warning
-    # print(F.binary_cross_entropy(F.softmax(pred, dim=pred.shape[0]), y))
-
-    sgd_optimizer = optim.SGD(model.parameters(), lr=0.1, momentum=0.9, nesterov=True, weight_decay=1e-6)
+    sgd = optim.SGD(model.parameters(), lr=0.1, momentum=0.9, nesterov=True, weight_decay=1e-6)
     binary_cross_entropy_loss = nn.BCELoss()
-
 
     id2gt = dict()
     factors = np.load(common.DATASETS_DIR+'/y_train_'+y_path+'.npy')
     index_factors = open(common.DATASETS_DIR+'/items_index_train_'+dataset+'.tsv').read().splitlines()
     id2gt = dict((index,factor) for (index,factor) in zip(index_factors,factors))
     X_val, Y_val, X_test, Y_test, N_train = load_data_hf5_memory(dataset, 0.1, 0.1, y_path, id2gt)
-    if params['dataset']['nsamples'] != 'all':
-        N_train = min(N_train,params['dataset']['nsamples'])
 
-
-    epochs = model.fit_generator(batch_block_generator(batch_size,config.y_path,N_train,id2gt),
-                samples_per_epoch = N_train-(N_train % config.training_params["n_minibatch"]),
-                nb_epoch = config.training_params["n_epochs"],
-                verbose=1,
-                validation_data = (X_val, Y_val),
-                callbacks=[early_stopping])
-                
-    # TODO? early stopping
+    # TODO early stopping
     for epoch in range(epochs):
         losses = []
-        for data in enumerate(batch_block_generator(batch_size,config.y_path,N_train,id2gt), 0):
-            inputs, labels = data[0].to(device), data[1].to(device)
+        for index, data in enumerate(batch_block_generator(dataset, batch_size,y_path,N_train,id2gt), 0):
+            print(data)
+            # inputs, labels = torch.from_numpy(data[0]), torch.from_numpy(data[1])
+            inputs, labels = torch.Tensor(data[0]), torch.Tensor(data[1])
+            # inputs, labels = data[0].to(device), data[1].to(device)
 
-            sgd_optimizer.zero_grad()
+            sgd.zero_grad()
 
             outputs = model(inputs)
 
@@ -166,7 +151,7 @@ def train(epochs, batch_size, num_workers, seed, dataset, x_path, y_path):
 
             optimizer.step()
 
-            # monitor_metric = 'val_loss'
+            # metrics = ['mean_squared_error']
             losses.append(loss.data.mean())
 
 
