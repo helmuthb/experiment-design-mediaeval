@@ -1,7 +1,6 @@
 from csv import reader
 from json import load
 from math import sqrt, isnan
-from multiprocessing import Array, Process, Queue
 from glob import glob
 from os import makedirs
 import logging
@@ -14,7 +13,9 @@ logging.basicConfig(
     level=logging.INFO,
     datefmt='%H:%M:%S')
 
-max_rows = 10
+min_row = 0
+max_rows = 1e10
+row_steps = 10000
 datasets = ["allmusic", "tagtraum", "discogs", "lastfm"]
 modes = ["train-train", "train-test", "validation"]
 categorical_features = ["key_key", "key_scale", "chords_key", "chords_scale"]
@@ -43,7 +44,7 @@ def get_nested_dict_values(d):
         yield d
 
 
-def process_observation(row, mode, dataset, sum_x, sum_x2, cnt_x, queue):
+def process_observation(row, mode, dataset, sum_x, sum_x2, cnt_x, features_file, genres_file):
     mbid = row[0]
     genres = row[2:]
     folder = (mode.split('-'))[0]
@@ -82,52 +83,40 @@ def process_observation(row, mode, dataset, sum_x, sum_x2, cnt_x, queue):
     features_txt = features_txt.replace("'", "")
     genres_txt = str(genres_encoded)[1:-1]
     genres_txt = genres_txt.replace("'", "")
-    queue.put((mode, dataset, features_txt + "\n", genres_txt + "\n"))
-
-
-def write_output(queue):
-    """ Consumer which consumes processed feature and genre vectors from the queue and writes them into a file. """
-    while True:
-        item = queue.get()
-        if item is None:
-            break
-        mode = item[0]
-        folder = (mode.split('-'))[0]
-        dataset = item[1]
-        features = item[2]
-        genres = item[3]
-        with open(f"{processed_dir}/{folder}/{dataset}-{mode}.csv", "a") as features_file,\
-                open(f"{processed_dir}/{folder}/{dataset}-{mode}.genres.csv", "a") as genres_file:
-            features_file.write(features)
-            genres_file.write(genres)
+    features_file.write(features_txt + "\n")
+    genres_file.write(genres_txt + "\n")
 
 
 def main():
     features_dim = 2669
     # -- sum_x and sum_x2 are the cumulative sum (of squares) of all features. these values are needed to compute the
     # -- mean and standard deviation in a memory-efficient manner after all observations have been passed
-    sum_x = Array('d', features_dim)
-    sum_x2 = Array('d', features_dim)
-    cnt_x = Array('d', features_dim)
-    output_queue = Queue()
+    sum_x = np.zeros(features_dim)
+    sum_x2 = np.zeros(features_dim)
+    cnt_x = np.zeros(features_dim, dtype=int)
     for dataset in datasets:
         for mode in modes:
             folder = (mode.split('-'))[0]
             logging.info(f"Preprocessing {mode} mode of {dataset} dataset")
             row_counter = 0
-            makedirs(f"{processed_dir}/{folder}", exist_ok=True)
-            with open(f"{data_dir}/acousticbrainz-mediaeval-{dataset}-{mode}.tsv", 'r') as dataset_file:
+            p_folder = f"{processed_dir}/{folder}"
+            f_suffix = f"{dataset}-{mode}"
+            src_fname = f"{data_dir}/acousticbrainz-mediaeval-{f_suffix}.tsv"
+            feat_fname = f"{p_folder}/{f_suffix}.csv"
+            genres_fname = f"{p_folder}/{f_suffix}.genres.csv"
+            makedirs(p_folder, exist_ok=True)
+            with open(src_fname, 'r') as dataset_file, open(feat_fname, 'w') as features_file, open(genres_fname, 'w') as genres_file:
                 rows = reader(dataset_file, delimiter="\t")
                 next(rows)
                 for row in rows:
+                    row_counter += 1
+                    if row_counter < min_row:
+                        continue
                     if row_counter > max_rows:
                         break
-                    process_observation(row, mode, dataset, sum_x, sum_x2, cnt_x, output_queue)
-                    row_counter += 1
-                    if row_counter % 100 == 0:
+                    process_observation(row, mode, dataset, sum_x, sum_x2, cnt_x, features_file, genres_file)
+                    if row_counter % row_steps == 0:
                         logging.info(f"Row counter: {row_counter}")
-    output_queue.put(None)
-    write_output(output_queue)
     logging.info("Finished first preprocessing pass")
 
     means = []
