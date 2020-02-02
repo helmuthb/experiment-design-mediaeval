@@ -58,14 +58,14 @@ def load_data_hf5_memory(dataset,val_percent, test_percent, y_path, id2gt):
     Y_val = np.asarray([id2gt[id.decode('utf-8')] for id in index_val])
     X_test = f['features'][N_train+N_val:N]
     index_test = f['index'][N_train+N_val:N]
-    print(index_test.shape)
-    print(X_test.shape)
+    # print(index_test.shape)
+    # print(X_test.shape)
     X_test = np.delete(X_test, np.where(index_test == ""), axis=0)
     index_test = np.delete(index_test, np.where(index_test == ""))                
-    print(index_test.shape)
-    print(X_test.shape)
+    # print(index_test.shape)
+    # print(X_test.shape)
     Y_test = np.asarray([id2gt[id.decode('utf-8')] for id in index_test])
-    print(Y_test.shape)
+    # print(Y_test.shape)
     index_train = f['index'][:N_train]
     index_train = np.delete(index_train, np.where(index_train == ""))
     N_train = index_train.shape[0]
@@ -113,8 +113,12 @@ def train(epochs, batch_step, batch_size, num_workers, seed, dataset, y_path):
 
     # gpu or cpu
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    print(f'using {device}')
     # device = torch.device("cpu")
     model.to(device)
+
+    print(model.state_dict().keys())
+    print([(k, v.shape) for (k, v) in model.state_dict().items()])
 
     pytorch_total_params = sum(p.numel() for p in model.parameters())
     pytorch_total_trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
@@ -151,10 +155,10 @@ def train(epochs, batch_step, batch_size, num_workers, seed, dataset, y_path):
             # TODO metrics = ['mean_squared_error']
             losses.append(loss.data.mean())
 
-    print(losses)
-    # TODO save weights
     weights = model.state_dict()['input.weight']
-    np.save(f'{common.EMBEDDED_DIR}/embedded_vector_{dataset}.npy', weights.cpu().numpy())
+    file = f'{common.EMBEDDED_DIR}/embedded_vector_{dataset}.npy'
+    np.save(file, weights.cpu().numpy())
+    print(f'embedded vector for {dataset} saved to {file}')
  
 if __name__ == "__main__":
     train()
