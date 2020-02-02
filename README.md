@@ -98,7 +98,7 @@ Traceback (most recent call last):
     **args)
   File "pygpu\gpuarray.pyx", line 658, in pygpu.gpuarray.init
   File "pygpu\gpuarray.pyx", line 587, in pygpu.gpuarray.pygpu_init
-pygpu.gpuarray.GpuArrayException: b'Could not load "nvrtc64_70.dll": The specified module could not be found.\r\n'
+pygpu.gpuarray.GpuArrayException: b'Could not load "nvrtc64\_70.dll": The specified module could not be found.\r\n'
 Traceback (most recent call last):
   File "run_experiments.py", line 1, in <module>
     from train import process
@@ -109,7 +109,17 @@ Traceback (most recent call last):
 ImportError: cannot import name 'Merge' from 'keras.layers' (C:\Users\Laszlo\Anaconda3\envs\pygpu_python3\lib\site-packages\keras\layers\__init__.py)
 (pygpu_python3) 
 ```
--> can't install older nvidia driver / cuda on latest windows 10?
+2 errors, 2 fixes:
+
+-> installed latest 10.2 cuda and copied to nvrtc64\_70.dll (https://github.com/Theano/Theano/issues/6681)
+
+-> revert keras latest (2.2.x) to 2.1.5
+
+# python 3
+
+```
+conda install keras=2.1.5 pandas theano scikit-learn matplotlib
+```
 
 # Learnings
 
