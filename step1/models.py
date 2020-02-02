@@ -18,9 +18,9 @@ class EmbeddedVectorModel(nn.Module):
         self.dense = nn.Linear(256, output_dim)
 
     def forward(self, x):
+        x = F.dropout(x, p=self.dropout_factor)
         x = F.relu(self.input(x))
         x = F.dropout(x, p=self.dropout_factor)
         x = torch.sigmoid(self.dense(x)) # UserWarning: nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.
-        x = F.dropout(x, p=self.dropout_factor)
         return x
 
