@@ -115,11 +115,24 @@ ImportError: cannot import name 'Merge' from 'keras.layers' (C:\Users\Laszlo\Ana
 
 -> revert keras latest (2.2.x) to 2.1.5
 
-# python 3
+# python2
 
 ```
+conda create -n wegwerf python=2.7
+pip install keras==2.1.5 pandas theano scikit-learn matplotlib
+conda install -c conda-forge pygpu
+pip install joblib
+pip install h5py
+```
+
+# python3
+
+```
+conda create -n theano_gpu python=3.6
 conda install keras=2.1.5 pandas theano scikit-learn matplotlib
 ```
+
+python=3.7 was very bad, conda exploded while calculation the dependencies
 
 # Learnings
 
