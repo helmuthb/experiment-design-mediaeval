@@ -1,9 +1,9 @@
-PWD m:\projects\experiment-design-mediaeval-ws2019\report
-INPUT C:\Users\Laszlo\AppData\Local\MiKTeX\2.9\miktex\data\le\pdftex\pdflatex.fmt
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.tex
-OUTPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.log
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\acmart.cls
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\acmart.cls
+PWD c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report
+INPUT C:\Users\websta\AppData\Local\MiKTeX\2.9\miktex\data\le\pdftex\pdflatex.fmt
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.tex
+OUTPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.log
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\acmart.cls
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\acmart.cls
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\xkeyval\xkeyval.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\xkeyval\xkeyval.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\generic\xkeyval\xkeyval.tex
@@ -44,8 +44,8 @@ INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\refcount.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\refcount.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty
-INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty
-INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\infwarerr\infwarerr.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\infwarerr\infwarerr.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\totpages\totpages.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\totpages\totpages.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\ms\everyshi.sty
@@ -60,29 +60,56 @@ INPUT C:\Program Files\MiKTeX 2.9\tex\latex\natbib\natbib.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\natbib\natbib.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty
-INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty
-INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty
-INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty
-INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty
-INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty
-INPUT C:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty
-INPUT C:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\iftex\iftex.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\iftex\iftex.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\pdftexcmds\pdftexcmds.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\pdftexcmds\pdftexcmds.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvsetkeys.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvsetkeys.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\etexcmds.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\etexcmds.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\iftex\ifluatex.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\iftex\ifluatex.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvdefinekeys.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvdefinekeys.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\pdfescape.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\pdfescape.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\hycolor.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\hycolor.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\xcolor-patch.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\xcolor-patch.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\hopatch.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\hopatch.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\letltxmacro\letltxmacro.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\letltxmacro\letltxmacro.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\auxhook.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\auxhook.sty
-INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty
-INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\kvoptions\kvoptions.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\kvoptions\kvoptions.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\intcalc.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\intcalc.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\puenc.def
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\puenc.def
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\url\url.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\url\url.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\bitset.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\bitset.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\bigintcalc.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\bigintcalc.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\atbegshi\atbegshi.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\atbegshi\atbegshi.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def
-INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty
-INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\atveryend\atveryend.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\atveryend\atveryend.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\rerunfilecheck\rerunfilecheck.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\rerunfilecheck\rerunfilecheck.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\uniquecounter.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\uniquecounter.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty
@@ -99,14 +126,18 @@ INPUT C:\Program Files\MiKTeX 2.9\tex\latex\graphics-cfg\color.cfg
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\graphics-cfg\color.cfg
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\iftex\ifpdf.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\iftex\ifpdf.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\iftex\ifvtex.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\iftex\ifvtex.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\iftex\ifxetex.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\generic\iftex\ifxetex.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.cfg
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.cfg
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\ncctools\manyfoot.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\ncctools\manyfoot.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\ncctools\nccfoots.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\ncctools\nccfoots.sty
-INPUT C:\Program Files\MiKTeX 2.9\tex\latex\iftex\iftex.sty
-INPUT C:\Program Files\MiKTeX 2.9\tex\latex\iftex\iftex.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\generic\pdftex\glyphtounicode.tex
 INPUT C:\Program Files\MiKTeX 2.9\tex\generic\pdftex\glyphtounicode.tex
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\cmap\cmap.sty
@@ -120,7 +151,7 @@ INPUT C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.def
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.def
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\jknappen\ec\ecrm0900.tfm
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\cmap\t1.cmap
-OUTPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.pdf
+OUTPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.pdf
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\cmap\t1.cmap
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\libertine\libertine.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\libertine\libertine.sty
@@ -171,13 +202,21 @@ INPUT C:\Program Files\MiKTeX 2.9\tex\latex\titlesec\titlesec.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\titlesec\titlesec.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\base\alltt.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\base\alltt.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\listings\lstmisc.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\listings\lstmisc.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.cfg
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.cfg
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\base\inputenc.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\base\inputenc.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang1.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang1.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\preprint\balance.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\preprint\balance.sty
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.aux
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.aux
-OUTPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.aux
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.aux
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.aux
+OUTPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.aux
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\newtx\omlnxlmi.fd
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\newtx\omlnxlmi.fd
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\newtx\untxexa.fd
@@ -229,19 +268,17 @@ INPUT C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.out
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.out
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.out
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.out
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.out
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.out
-OUTPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.out
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.out
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.out
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.out
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.out
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.out
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.out
+OUTPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.out
 INPUT C:\Program Files\MiKTeX 2.9\tex\context\base\mkii\supp-pdf.mkii
 INPUT C:\Program Files\MiKTeX 2.9\tex\context\base\mkii\supp-pdf.mkii
-INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty
-INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty
-INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty
-INPUT C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\epstopdf-pkg\epstopdf-base.sty
+INPUT C:\Program Files\MiKTeX 2.9\tex\latex\epstopdf-pkg\epstopdf-base.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\upquote\upquote.sty
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\upquote\upquote.sty
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\libertine\LinLibertineT-tlf-t1.tfm
@@ -281,14 +318,9 @@ INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\newtx\ntxexa.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\libertine\LinLibertineT-tlf-t1.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\libertine\LinLibertineT-tlf-t1.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\libertine\LinLibertineTI-tlf-t1.tfm
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\Preprocess-Data.png
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\Preprocess-Data.png
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\Preprocess-Data.png
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\Preprocess-Data.png
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\Preprocess-Data.png
 INPUT C:\Program Files\MiKTeX 2.9\fonts\vf\public\libertine\LinBiolinumTB-tlf-t1.vf
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\libertine\LinBiolinumTB-tlf-t1--base.tfm
-INPUT C:\Users\Laszlo\AppData\Local\MiKTeX\2.9\pdftex\config\pdftex.map
+INPUT C:\Users\websta\AppData\Local\MiKTeX\2.9\pdftex\config\pdftex.map
 INPUT C:\Program Files\MiKTeX 2.9\fonts\vf\public\libertine\LinLibertineT-tlf-t1.vf
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\libertine\LinLibertineT-tlf-t1--base.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\vf\public\libertine\LinLibertineT-tlf-t1.vf
@@ -310,17 +342,25 @@ INPUT C:\Program Files\MiKTeX 2.9\fonts\vf\public\libertine\LinLibertineT-tlf-t1
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\libertine\LinLibertineT-tlf-t1--base.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\vf\public\libertine\LinLibertineTI-tlf-t1.vf
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\libertine\LinLibertineTI-tlf-t1--base.tfm
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.bbl
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.bbl
+INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\libertine\LinLibertineTB-tlf-t1.tfm
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\Preprocess-Data.png
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\Preprocess-Data.png
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\Preprocess-Data.png
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\Preprocess-Data.png
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\Preprocess-Data.png
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.bbl
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.bbl
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\libertine\LinBiolinumT-tlf-t1.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\libertine\LinBiolinumT-tlf-t1.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\vf\public\libertine\LinBiolinumT-tlf-t1.vf
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\libertine\LinBiolinumT-tlf-t1--base.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\vf\public\libertine\LinLibertineTB-tlf-t1.vf
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\libertine\LinLibertineTB-tlf-t1--base.tfm
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.aux
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.out
-INPUT m:\projects\experiment-design-mediaeval-ws2019\report\report.out
+INPUT C:\Program Files\MiKTeX 2.9\fonts\vf\public\libertine\LinLibertineTB-tlf-t1.vf
+INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\libertine\LinLibertineTB-tlf-t1--base.tfm
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.aux
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.out
+INPUT c:\Users\websta\tuwien\experiment design for data science\exercise2\experiment-design-mediaeval-ws2019\report\report.out
 INPUT C:\Program Files\MiKTeX 2.9\fonts\enc\dvips\libertine\lbtn_25tcsq.enc
 INPUT C:\Program Files\MiKTeX 2.9\fonts\enc\dvips\libertine\lbtn_7grukw.enc
 INPUT C:\Program Files\MiKTeX 2.9\fonts\enc\dvips\libertine\lbtn_nh77jq.enc
