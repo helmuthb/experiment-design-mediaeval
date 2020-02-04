@@ -25,7 +25,9 @@
             "program": "${workspaceFolder}/step1/train.py",
             "cwd": "${workspaceFolder}/step1",
             "args" : [
-                "--batch_size", "1"
+                "--batch_size", "5",
+                "--block_step", "20",
+                "--patience", "10"
             ]
         }
     ]

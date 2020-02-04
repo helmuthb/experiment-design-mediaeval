@@ -73,11 +73,11 @@ def load_data_hf5_memory(dataset,val_percent, test_percent, y_path, id2gt):
     
     return X_val, Y_val, X_test, Y_test, N_train
 
-def batch_block_generator(dataset, batch_step, batch_size, y_path, N_train, id2gt):
+def batch_block_generator(dataset, block_step, batch_size, y_path, N_train, id2gt):
     hdf5_file = f"{common.PATCHES_DIR}/patches_train_{dataset}_1x1.hdf5"
     f = h5py.File(hdf5_file,"r")
     # block_step = 50000
-    block_step = batch_step
+    block_step = block_step
     batch_size = batch_size
     randomize = True
     # while 1:
@@ -100,14 +100,14 @@ def batch_block_generator(dataset, batch_step, batch_size, y_path, N_train, id2g
 
 @click.command()
 @click.option("--epochs", default=100, help="Number of epochs.")
-@click.option("--batch_step", default=1, help="Batch Step.")
+@click.option("--block_step", default=1, help="Block Step.")
 @click.option("--batch_size", default=1, help="Batch Size.")
 @click.option("--num_workers", default=2, help="Number of Workers (at least 2 recommended).")
 @click.option("--seed", default=73, help="Seed.")
 @click.option("--dataset", default="discogs", help="Dataset: one of allmusic, tagtraum, discogs or lastfm.")
 @click.option("--y_path", default="class_315_discogs", help="Ys: one of class_766_allmusic, class_296_tagtraum, class_315_discogs or class_327_lastfm.")
 @click.option("--patience", default=5, help="Patience is an early stopping parameter.")
-def train(epochs, batch_step, batch_size, num_workers, seed, dataset, y_path, patience):
+def train(epochs, block_step, batch_size, num_workers, seed, dataset, y_path, patience):
 
     torch.manual_seed(seed)
 
@@ -149,7 +149,7 @@ def train(epochs, batch_step, batch_size, num_workers, seed, dataset, y_path, pa
     for epoch in range(1, epochs + 1):
 
         model.train()
-        for index, data in enumerate(batch_block_generator(dataset, batch_step, batch_size,y_path,N_train,id2gt), 0):
+        for index, data in enumerate(batch_block_generator(dataset, block_step, batch_size,y_path,N_train,id2gt), 0):
 
             inputs, labels = torch.Tensor(data[0]).to(device), torch.Tensor(data[1]).to(device)
 
