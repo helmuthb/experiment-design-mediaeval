@@ -3,6 +3,7 @@ import h5py
 import numpy as np
 from pytorchtools import EarlyStopping
 import random
+from sklearn.metrics import roc_auc_score
 import torch
 from torchvision import datasets
 import torch.nn as nn
@@ -10,7 +11,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 
 import common 
-from models import EmbeddedVectorModel
+from models import Subtask1Model
 
 def load_data_hf5_memory(dataset,val_percent, test_percent, y_path, id2gt):
     hdf5_file = f"{common.PATCHES_DIR}/patches_train_{dataset}_1x1.hdf5"
@@ -120,7 +121,7 @@ def train(epochs, block_step, batch_size, num_workers, seed, dataset, num_classe
 
     torch.manual_seed(seed)
 
-    model = EmbeddedVectorModel(num_classes)
+    model = Subtask1Model(num_classes)
 
     # gpu or cpu
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -207,7 +208,7 @@ def train(epochs, block_step, batch_size, num_workers, seed, dataset, num_classe
                      f'train_loss: {train_loss:.5f} ' +
                      f'valid_loss: {valid_loss:.5f} ' +
                      f'test_loss: {test_loss:.5f} ')
-        
+
         print(print_msg)
 
         train_losses = []
@@ -220,12 +221,18 @@ def train(epochs, block_step, batch_size, num_workers, seed, dataset, num_classe
             print("Early stopping")
             break
 
+    # load best model
     model.load_state_dict(torch.load('checkpoint.pt'))
+    file = f'{common.SAVED_MODELS_DIR}/subtask1_{dataset}.pt'
+    torch.save(model.state_dict(), file)
+    print(f'best model for {dataset} saved to {file}')
 
-    weights = model.state_dict()['input.weight']
-    file = f'{common.EMBEDDED_DIR}/embedded_vector_{dataset}.npy'
-    np.save(file, weights.cpu().numpy())
-    print(f'best embedded vector for {dataset} saved to {file}')
- 
+    # TODO save activations from feeding OTHER datasets (whatever that means)
+    # weights = model.state_dict()['input.weight']
+    # file = f'{common.EMBEDDED_DIR}/embedded_vector_{dataset}.npy'
+    # np.save(file, weights.cpu().numpy())
+    # print(f'best embedded vector for {dataset} saved to {file}')
+
+
 if __name__ == "__main__":
     train()

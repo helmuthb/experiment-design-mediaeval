@@ -6,10 +6,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 
-class EmbeddedVectorModel(nn.Module):
+class Subtask1Model(nn.Module):
 
     def __init__(self, output_dim):
-        super(EmbeddedVectorModel, self).__init__()
+        super(Subtask1Model, self).__init__()
         # network hyper parameters
         self.dropout_factor = 0.5
 

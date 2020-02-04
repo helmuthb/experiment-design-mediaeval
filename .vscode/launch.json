@@ -19,7 +19,7 @@
             "args" : ["-m", "0", "./data/acousticbrainz-mediaeval-allmusic-train.tsv"]
         },
         {
-            "name": "Python: Step 1 - Train embedded vector",
+            "name": "Python: Subtask 1 - Train Model",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/step1/train.py",
