@@ -122,7 +122,6 @@ def main(datasets):
                     if row_counter % row_steps == 0:
                         logging.info(f"Row counter: {row_counter}")
     logging.info("Finished first preprocessing pass")
-    return
 
     means = []
     sdevs = []
