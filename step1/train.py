@@ -154,10 +154,12 @@ def train(epochs, block_step, batch_size, num_workers, seed, dataset, num_classe
     early_stopping = EarlyStopping(patience=patience, verbose=True)
     train_losses = []
     valid_losses = []
+    valid_roc_aucs = []
     test_losses = []
     avg_train_losses = []
     avg_valid_losses = [] 
     avg_test_losses = [] 
+    avg_valid_roc_aucs = []
 
     for epoch in range(1, epochs + 1):
 
@@ -187,6 +189,11 @@ def train(epochs, block_step, batch_size, num_workers, seed, dataset, num_classe
 
             valid_losses.append(loss.item())
 
+            try:
+                valid_roc_aucs.append(roc_auc_score(np.array(target), output.detach().numpy()))
+            except:
+                valid_roc_aucs.append(0.0)
+
         for data, target in test_set:
 
             output = model(torch.Tensor(data).to(device))
@@ -198,22 +205,26 @@ def train(epochs, block_step, batch_size, num_workers, seed, dataset, num_classe
         train_loss = np.average(train_losses)
         valid_loss = np.average(valid_losses)
         test_loss = np.average(test_losses)
+        valid_roc_auc = np.average(valid_roc_aucs)
         avg_train_losses.append(train_loss)
         avg_valid_losses.append(valid_loss)
         avg_test_losses.append(test_loss)
+        avg_valid_roc_aucs.append(valid_roc_auc)
         
         epoch_len = len(str(epochs))
         
         print_msg = (f'[{epoch:>{epoch_len}}/{epochs:>{epoch_len}}] ' +
                      f'train_loss: {train_loss:.5f} ' +
                      f'valid_loss: {valid_loss:.5f} ' +
-                     f'test_loss: {test_loss:.5f} ')
+                     f'valid_roc_auc: {valid_roc_auc:.5f} ' +
+                     f'test_loss: {test_loss:.5f}')
 
         print(print_msg)
 
         train_losses = []
         valid_losses = []
         test_losses = []
+        valid_roc_aucs = []
         
         early_stopping(valid_loss, model)
         
