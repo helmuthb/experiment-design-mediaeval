@@ -238,12 +238,32 @@ it in another platform turned out to be super simple.
 We used Pytorch where we have most experience
 in achieving GPU acceleration.
 
+The result of subtask 1 are 4 models, each trained on the individual datasets (allmusic, discogs, lastfm, tagtraum) with ROC/AUC scores on the validation data.
+
 \subsection{Learning the Step 2 Network}
 
 Due to time constraints we did not manage to learn all
 the networks required for step 1, which means we could not
 complete the step 2 network which is based on the
 stacked latent feature layers.
+
+Our assumption is that following steps have been implemented in subtask 2:
+
+\begin{itemize}
+  \item for each trained model
+  \begin{itemize}
+    \item make predictions with all tracks from each dataset
+    \item save all track activations for each dataset
+    \item use the track activations from each dataset as input to train a new model
+  \end{itemize}
+\end{itemize}
+
+Example for allmusic: 
+\begin{itemize}
+  \item We train all 4 models as described in subtask 1
+  \item We then predict allmusic dataset on all 4 models and save the activations
+  \item We the concatenate the 4 activations to one input to a new model which is trained on allmusic again
+\end{itemize}
 
 \section{Reproduction - Additional Repository}\label{reproduction2}
 

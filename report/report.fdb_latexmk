@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex /Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report"] 0 "/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.aux" "/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.bbl" "/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report" 0
-  "/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.aux" 1580836082 2549 7579d5434744dfd6b249135eecf3a380 ""
-  "/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.bcf" 0 -1 0 ""
+["bibtex report"] 1580850387 "report.aux" "report.bbl" "report" 1580850388
   "/usr/local/texlive/2016/texmf-dist/bibtex/bst/base/alpha.bst" 1292289607 23907 a5f93555796fb564b924339521f10a7c ""
   "bibliography.bib" 1580545132 278 dec85f8607996f93aac00ec12f229c00 ""
+  "report.aux" 1580850388 2618 509fbe3b823cc8e9adc496d494a9b2e0 ""
+  "report.bcf" 0 -1 0 ""
   (generated)
-  "/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.bbl"
-["pdflatex"] 1580836081 "report.tex" "/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.pdf" "report" 1580836081
-  "/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.aux" 1580836081 8 a94a2480d3289e625eea47cd1b285758 ""
-  "/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.bbl" 0 -1 0 "bibtex /Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report"
+  "report.bbl"
+  "report.blg"
+["pdflatex"] 1580850387 "report.tex" "/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.pdf" "report" 1580850388
+  "/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.aux" 1580850388 2618 509fbe3b823cc8e9adc496d494a9b2e0 ""
   "/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc" 1455236391 7311 f1482de29b79cbe9ecc4861d6c55e906 ""
   "/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc" 1419120006 2951 d5e075e10c280ad772b9d44c9981aa31 ""
@@ -186,13 +186,15 @@
   "/usr/local/texlive/2016/texmf.cnf" 1463979140 577 2938757e76f31531e65cc647e3507693 ""
   "Preprocess-Data.png" 1580564373 49393 1a9ae33384968ec420bab6612d5d9f32 ""
   "acmart.cls" 1580545132 96593 bfae6004bc6feb547004a07a80ce8316 ""
-  "report.aux" 0 -1 0 ""
-  "report.tex" 1580836079 12853 ef950144209e5c5c54e559234784bc15 ""
+  "report.aux" 1580850388 2618 509fbe3b823cc8e9adc496d494a9b2e0 ""
+  "report.bbl" 1580850387 49 0eba253fc001332e731e8aba3f23127b "bibtex report"
+  "report.out" 1580850388 2258 40936ee45c92a1962fbd7164a287e5f0 ""
+  "report.tex" 1580850346 13686 10edaa92f4a72d6f1d9b576daa09a21b ""
   (generated)
-  "/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.pdf"
-  "/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.log"
   "report.aux"
+  "/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.pdf"
+  "/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.aux"
+  "report.pdf"
   "report.out"
   "report.log"
-  "report.pdf"
-  "/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.aux"
+  "/Users/laszlo/projects/uni/experiment-design-mediaeval-ws2019/report/report.log"
