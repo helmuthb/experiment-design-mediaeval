@@ -28,8 +28,20 @@
 \settopmatter{printfolios=true}
 
 \begin{abstract}
-This documents the activities and results performed by Group 04 during
-\emph{Exercise 2: Reproducibility} of the lecture \emph{188.992 Experiment Design for Data Science}.
+Based on the paper
+\emph{"MediaEval 2018 AcousticBrainz Genre Task: A Baseline
+Combining Deep Feature Embeddings Across Datasets"}
+by Oramas et al., we were working on reproducing their results on
+predicting genres from different taxonomies using stacked neural
+networks.
+
+As documented in this paper we were only partially successful
+in a full reproduction, mainly due to missing information in the
+paper and the accompanying repository and technical issues related with
+the vast amount of data to be processed.
+
+This reproducability exercise was performed by Group 04 during
+the lecture \emph{188.992 Experiment Design for Data Science}.
 \end{abstract}
 
 \renewcommand{\thesection}{\Alph{section})}
@@ -44,7 +56,9 @@ This documents the activities and results performed by Group 04 during
 %%
 %% The "title" command has an optional parameter,
 %% allowing the author to define a "short title" to be used in page headers.
-\title{Experiment Design, Group 04 -- Reproducibility - Paper 2}
+\title{Experiment Design, Group 04 -- Reproducibility}
+
+\subtitle{Option 2: Prediction of music genre across different taxonomies}
 
 %%
 %% The "author" command and its associated commands are used to define
@@ -84,65 +98,152 @@ This documents the activities and results performed by Group 04 during
 %% information and builds the first part of the formatted document.
 \maketitle
 
-\section{Paper selection}
+\section{Task Description}
 
-We selected \textit{Option 2 - Prediction of music genre across different taxonomies} which is based on the paper \textit{MediaEval 2018 AcousticBrainz Genre Task: A Baseline
-Combining Deep Feature Embeddings Across Datasets} written by Sergio Oramas, Dmitry Bogdanov and Alastair Porter for the MediaEval conference 2018 in France.
-We have choosen the paper because we were curious to reproduce the output of the Neural Network and see what the problems in difference to regular Machine Learning papers are.
+The original paper describes an approach of predicting music genres
+as a "baseline approach" for the
+\emph{MediaEval 2018 AcousticBrainz Genre Task}.
 
+The conference provides a website for the classification
+task\footnote{\url{https://multimediaeval.github.io/2018-AcousticBrainz-Genre-Task/}, seen on 2020-01-30}
+which describes the task, the schedule and the dataset on a
+subpage\footnote{\url{https://multimediaeval.github.io/2018-AcousticBrainz-Genre-Task/data/}, seen on 2020-01-30}
+in detail.
 
-\subsection{Paper Introduction}
+Four classification sources ("allmusic", "discogs", "tagtraum" and "lastfm")
+have genres identified for audio files, using four different taxonomies
+of genres.
+While the audio files themselves are not available, there is a JSON
+file with precomputed audio features extracted using 
+Essentia\footnote{\url{https://essentia.upf.edu/}, seen on 2020-01-30}.
 
-The paper describes a baseline approach for the MediaEval 2018 AcousticBrainz Genre Task based on a deep neural network.
-\textit{The task is focused on content-based musicgenre recognition using genre annotations from multiple sources and large-scale music features data available in the AcousticBrainz database} \cite{MediaEval1}.
+Using these JSON files and one-hot encoding for the categorical
+values contained,
+the authors have extracted a set of 2669 features which were
+then used to train a neural network per classification source.
+Each network has one 256-dimensional hidden layer and the output layer,
+corresponding in dimensionality with the genres used by the classification
+source. 
 
-\subsection{Datasets}
+As a follow-up step the authors have then stacked the hidden
+layer representation of songs based on the four networks into
+one 1024-dimensional feature vector, which is then used to predict
+the genre per classification source.
 
-The conference provides a website for the classification task\footnote{\url{https://multimediaeval.github.io/2018-AcousticBrainz-Genre-Task/}, seen on 2020-01-30} which describes the task, the schedule and the dataset on a subpage\footnote{\url{https://multimediaeval.github.io/2018-AcousticBrainz-Genre-Task/data/}, seen on 2020-01-30} in detail.
-This subpage contains multiple links:
-\begin{itemize}
-    \item Zenodo\footnote{\url{https://zenodo.org/record/2553414}, \url{https://zenodo.org/record/2554044}, seen on 2020-01-30} uploaded by Dmitry Bogdanov, Alastair Porter et al.
-    \item Google Drive\footnote{\url{https://drive.google.com/drive/folders/0B8wz5KkuLnI3RjFYSFY5TkJVU1U}} containing train/test/validation folders provided by Dmitry Bogdanov and Alastair Porter    
-\end{itemize}
+As a preparational step the training data was split into 80\%/20\%
+"train-train" and "train-test" data by the authors,
+used for validation during the training step.
 
+\subsection{Data Sets}
 
-The Zenodo page contains all the required data (allmusic, discogs, lastfm and tagtraum) for the classification task. The second Zenodo page contains restricted access to the AllMusic ground truth, which has been granted after a simple request on the Zenodo page.
-The compressed file size of all downloads is about 47GB.
+We downloaded the datasets provided by the authors via zenodo,
+in addition to the "allmusic" dataset from TUWEL
+(which is under a more restricted license and therefore not
+publicly available).
 
-After decompressing the dataset is structured as followed:
-\begin{itemize}
-    \item acousticbrainz-mediaeval-train folder 83GB, 1.458.447 files
-    \item acousticbrainz-mediaeval-validation folder 18GB, 313.860 files
-    \item acousticbrainz-mediaeval-allmusic-train.tsv 260MB (restricted dataset)
-    \item acousticbrainz-mediaeval-allmusic-validation.tsv 55MB (restricted dataset)
-    \item acousticbrainz-mediaeval-discogs-train.tsv 127MB
-    \item acousticbrainz-mediaeval-discogs-validation.tsv 26MB
-    \item acousticbrainz-mediaeval-lastfm-train.tsv 62MB
-    \item acousticbrainz-mediaeval-lastfm-validation.tsv 14MB
-    \item acousticbrainz-mediaeval-tagtraum-train.tsv 59MB
-    \item acousticbrainz-mediaeval-tagtraum-validation.tsv 13MB
-\end{itemize}
-Total size of the extracted files: 102GB
+The ground truth is provided for 4019812 entries (most songs are
+classified by more than one classification source) as TSV-files.
 
-The folders contains subfolders ranging from 00-ff containing JSON files which itself contain precomputed Audio features extracted with Essentia\footnote{\url{https://essentia.upf.edu/}, seen on 2020-01-30} from the community-built AcousticBrainz database.
+Originally we also downloaded the test dataset.
+However since there is no "ground truth" available for them, predicting
+their genres without being able to validate the correctness is of
+no value for us.
+Therefore we removed them later on.
 
-The .tsv files contains features in the format:
-recordingmbid   releasegroupmbid        genre1  genre2  genre3  ... genre39 genre40.
+Overall we had to download data in the volume of (uncompressed)
+more than 100GB,
+split into 1772307 single files in JSON format.
 
-The field \textit{recordingmbid} is the MusicBrainz identifier of the particular recording, whereas \textit{releasegroupmbid} is a MusicBrainz identifier of a release group (an album, single, or compilation) that it belongs to. The related genres and subgenres are encoded into the columns \textit{genre1-genre40}.
-For each recordingmbid there exists a file in the \textit{acousticbrainz-mediaeval-train} folder.
+We have then randomly split the training data set into 80\%
+"train-train" and 20\% "train-test" data for the following tasks.
 
+\subsection{Feature Extraction}
 
+The first step, which is extracting the 2669 features from the provided
+JSON files, is unfortunately not documented.
+We have tried contacting the main author via two email addresses,
+however we did not receive any response.
+This is very unfortunate as the features used presumably have a great
+impact on the final results.
 
-\section{Reproduction - Original Repository}\label{reproduction1}
+In our attempts to recreate these features
+we were somehow lucky and found a
+repository\footnote{\url{https://github.com/nikuya3/acousticbrainz-mediaeval-baseline}, seen on 2020-01-30}
+which was created just a few weeks ago, containing an
+attempt at creating the CSV files as needed.
 
-The authors of the paper provided a link to a Github repository\footnote{\url{https://github.com/MTG/acousticbrainz-mediaeval-baselines}, seen on 2020-01-30} which contains a data-preparation folder and a link to another repository\footnote{\url{https://github.com/sergiooramas/tartarus/tree/b214f66dd4e61e83edc45ffc5c280efe7318a1b6}, seen on 2020-01-30}. 
-This linked repository contains three experiments written by Oramas et al. . Based on the description of the experiments and on the number of features described in the paper (2669) we could identify experiment 3: \textit{TISMIR Experiments (Single\-label Classification)}\footnote{denoted in the run\_experiments.py as \textit{ISMIR 2019 Experiments (Baseline for AcousticBrainz Genre Dataset Classification)}} as the baseline approach.
+This third-party repository is dealing with the 2019 iteration
+of the original paper.
+It was a good starting point, however a lot of
+work was required to achieve preprocessed data which is
+compatible with the other, provided code by the authors of the paper.
 
-With this information we inspected the \textit{data-preparation/create\_h5.py} file to find out how to prepare the data. The existing file \textit{data-preparation/create\_h5.py} requires some \textit{.features.clean.std.csv} and \textit{.clean.std.csv} as well as \textit{.genres.csv} as input. None of them is available in the dataset.
+It did a good job at creating \emph{almost} the correct number
+of features (2668 instead of 2669 as in the original paper),
+however one of the features has a constant value of 1.
+Also the encoding of the ground truth had some mistakes, and we
+had to implement a one-hot encoding to match the networks.
 
-Tries to contact the main author via two mail addresses (soramas@pandora.com, sergio.oramas@upf.edu) were not successful.
+We ended up with adding one more feature, the \emph{median}
+of the \emph{beats\_loudness}.
+It is missing in some observations and we are filling it with the mean
+of the median for the other observations in the training dataset.
+We ignored the fact that one of the features has a constant value,
+hoping that the impact of one feature, given the vast amount of features,
+will be neglectable.
 
+Another issue with the code was that it performed the $z$-scaling using
+the mean and standard deviation estimated from \emph{all} observations,
+including data from the validation set.
+We changed this to only use mean and standard deviation estimates
+derived from the "train-train" dataset.
+
+When running the conversion the runtime of this step itself was
+a practical issue.
+Performing the conversation took more than 48 hours on the systems
+available to us.
+For development purposes we have therefore used a stripped-down
+version of the data.
+Still, when then applying the code on the full dataset new
+issues popped up, like missing values and their treatment.
+Overall, this "simple" step of feature extraction into CSV
+format took us multiple weeks to get it correct.
+
+\subsection{Format Conversion}
+
+As a next step the original code was converting the data from
+CSV format into sets of files in HDF5 format, \texttt{numpy}
+persisted files and again TSV files for indexes.
+
+This code was working as provided without any major issue,
+except that it was necessary using Python version 2.
+
+\subsection{Learning the Step 1 Network}
+
+The code for learning the first network is based on Keras
+with a Theano backend.
+
+Running the code on CPU only turned out to be completely infeasible.
+
+Making Theano run on GPU is however not an easy task either.
+Development on Theano has stopped in 
+2017\footnote{\url{https://groups.google.com/forum/#!msg/theano-users/7Poq8BZutbY/rNCIfvAEAwAJ}, seen on 2020-02-04},
+and using GPU acceleration
+is only possible with outdated libraries and operating system drivers.
+
+We therefore had to abandon the idea of using the existing code
+for the neural network.
+Since the network is rather simple in nature, reimplementing
+it in another platform turned out to be super simple.
+We used Pytorch where we have most experience
+in achieving GPU acceleration.
+
+\subsection{Learning the Step 2 Network}
+
+Due to time constraints we did not manage to learn all
+the networks required for step 1, which means we could not
+complete the step 2 network which is based on the
+stacked latent feature layers.
 
 \section{Reproduction - Additional Repository}\label{reproduction2}
 
