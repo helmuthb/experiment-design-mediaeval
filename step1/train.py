@@ -105,13 +105,22 @@ def batch_block_generator(dataset, block_step, batch_size, y_path, N_train, id2g
 @click.option("--num_workers", default=2, help="Number of Workers (at least 2 recommended).")
 @click.option("--seed", default=73, help="Seed.")
 @click.option("--dataset", default="discogs", help="Dataset: one of allmusic, tagtraum, discogs or lastfm.")
-@click.option("--y_path", default="class_315_discogs", help="Ys: one of class_766_allmusic, class_296_tagtraum, class_315_discogs or class_327_lastfm.")
+@click.option("--num_classes", default=315, help="Ys: one of 766 for allmusic, 296 for tagtraum, 315 for discogs or 327 for lastfm.")
 @click.option("--patience", default=5, help="Patience is an early stopping parameter.")
-def train(epochs, block_step, batch_size, num_workers, seed, dataset, y_path, patience):
+def train(epochs, block_step, batch_size, num_workers, seed, dataset, num_classes, patience):
+    """
+    sample calls:
+    python train.py --batch_size 5 --block_step 20 --patience 10 --dataset discogs --num_classes 315  
+    python train.py --batch_size 5 --block_step 20 --patience 10 --dataset lastfm --num_classes 327  
+    python train.py --batch_size 5 --block_step 20 --patience 10 --dataset allmusic --num_classes 766  
+    python train.py --batch_size 5 --block_step 20 --patience 10 --dataset tagtraum --num_classes 296  
+    """
+
+    y_path = "class_" + str(num_classes) + "_" + dataset
 
     torch.manual_seed(seed)
 
-    model = EmbeddedVectorModel(315)
+    model = EmbeddedVectorModel(num_classes)
 
     # gpu or cpu
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
