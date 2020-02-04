@@ -138,13 +138,16 @@ def train(epochs, block_step, batch_size, num_workers, seed, dataset, y_path, pa
     X_val, Y_val, X_test, Y_test, N_train = load_data_hf5_memory(dataset, 0.1, 0.1, y_path, id2gt)
 
     validation_set = list(zip(X_val[:], Y_val[:]))
+    test_set = list(zip(X_test[:], Y_test[:]))
 
     # see https://github.com/Bjarten/early-stopping-pytorch/blob/master/MNIST_Early_Stopping_example.ipynb
     early_stopping = EarlyStopping(patience=patience, verbose=True)
     train_losses = []
     valid_losses = []
+    test_losses = []
     avg_train_losses = []
     avg_valid_losses = [] 
+    avg_test_losses = [] 
 
     for epoch in range(1, epochs + 1):
 
@@ -174,21 +177,33 @@ def train(epochs, block_step, batch_size, num_workers, seed, dataset, y_path, pa
 
             valid_losses.append(loss.item())
 
+        for data, target in test_set:
+
+            output = model(torch.Tensor(data).to(device))
+
+            loss = criterion(output, torch.Tensor(target).to(device))
+
+            test_losses.append(loss.item())
+
         train_loss = np.average(train_losses)
         valid_loss = np.average(valid_losses)
+        test_loss = np.average(test_losses)
         avg_train_losses.append(train_loss)
         avg_valid_losses.append(valid_loss)
+        avg_test_losses.append(test_loss)
         
         epoch_len = len(str(epochs))
         
         print_msg = (f'[{epoch:>{epoch_len}}/{epochs:>{epoch_len}}] ' +
                      f'train_loss: {train_loss:.5f} ' +
-                     f'valid_loss: {valid_loss:.5f}')
+                     f'valid_loss: {valid_loss:.5f} ' +
+                     f'test_loss: {test_loss:.5f} ')
         
         print(print_msg)
 
         train_losses = []
         valid_losses = []
+        test_losses = []
         
         early_stopping(valid_loss, model)
         
