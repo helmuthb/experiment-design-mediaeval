@@ -4,6 +4,7 @@ from math import sqrt, isnan
 from glob import glob
 from os import makedirs
 import logging
+import sys
 
 import numpy as np
 import pandas as pd
@@ -71,14 +72,16 @@ def process_observation(row, mode, dataset, sum_x, sum_x2, cnt_x, features_file,
     for g in genres_indexes:
         genres_encoded[g] = 1
     genres_encoded.insert(0, mbid)
-    for i in range(len(features) - 1):
-        try:
-            if not np.isnan(features[i+1]):
-                sum_x[i] += features[i + 1]
-                sum_x2[i] += features[i + 1] ** 2
-                cnt_x[i] += 1
-        except:
-            pass
+    # calculate statistics for train-train data only
+    if mode == "train-train":
+        for i in range(len(features) - 1):
+            try:
+                if not np.isnan(features[i+1]):
+                    sum_x[i] += features[i + 1]
+                    sum_x2[i] += features[i + 1] ** 2
+                    cnt_x[i] += 1
+            except:
+                pass
     features_txt = str(features)[1:-1]
     features_txt = features_txt.replace("'", "")
     genres_txt = str(genres_encoded)[1:-1]
@@ -87,7 +90,8 @@ def process_observation(row, mode, dataset, sum_x, sum_x2, cnt_x, features_file,
     genres_file.write(genres_txt + "\n")
 
 
-def main():
+# only process the dataset given on command line
+def main(datasets):
     features_dim = 2669
     # -- sum_x and sum_x2 are the cumulative sum (of squares) of all features. these values are needed to compute the
     # -- mean and standard deviation in a memory-efficient manner after all observations have been passed
@@ -118,6 +122,7 @@ def main():
                     if row_counter % row_steps == 0:
                         logging.info(f"Row counter: {row_counter}")
     logging.info("Finished first preprocessing pass")
+    return
 
     means = []
     sdevs = []
@@ -129,10 +134,6 @@ def main():
             sd = 1.
         means.append(mean)
         sdevs.append(sd)
-    with open(f"{processed_dir}/means.csv", 'w') as file:
-        file.write(",".join(map(str, means)))
-    with open(f"{processed_dir}/sdevs.csv", 'w') as file:
-        file.write(",".join(map(str, sdevs)))
     logging.info("Calculated means and standard deviations")
 
     logging.info("Scale preprocessed datasets")
@@ -156,5 +157,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
 
