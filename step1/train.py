@@ -55,19 +55,13 @@ def load_data_hf5_memory(dataset,val_percent, test_percent, y_path, id2gt):
     X_val = f['features'][N_train:N_train+N_val]
     index_val = f['index'][N_train:N_train+N_val]
     X_val = np.delete(X_val, np.where(index_val == ""), axis=0)
-    index_val = np.delete(index_val, np.where(index_val == ""))  
-    # 07c41ad0-3102-40d2-8f93-50fe5c08a3e8              
+    index_val = np.delete(index_val, np.where(index_val == ""))              
     Y_val = np.asarray([id2gt[id.decode('utf-8')] for id in index_val])
     X_test = f['features'][N_train+N_val:N]
     index_test = f['index'][N_train+N_val:N]
-    # print(index_test.shape)
-    # print(X_test.shape)
     X_test = np.delete(X_test, np.where(index_test == ""), axis=0)
     index_test = np.delete(index_test, np.where(index_test == ""))                
-    # print(index_test.shape)
-    # print(X_test.shape)
     Y_test = np.asarray([id2gt[id.decode('utf-8')] for id in index_test])
-    # print(Y_test.shape)
     index_train = f['index'][:N_train]
     index_train = np.delete(index_train, np.where(index_train == ""))
     N_train = index_train.shape[0]
@@ -103,12 +97,11 @@ def batch_block_generator(dataset, block_step, batch_size, y_path, N_train, id2g
 @click.option("--epochs", default=100, help="Number of epochs.")
 @click.option("--block_step", default=1, help="Block Step.")
 @click.option("--batch_size", default=1, help="Batch Size.")
-@click.option("--num_workers", default=2, help="Number of Workers (at least 2 recommended).")
 @click.option("--seed", default=73, help="Seed.")
 @click.option("--dataset", default="discogs", help="Dataset: one of allmusic, tagtraum, discogs or lastfm.")
 @click.option("--num_classes", default=315, help="Ys: one of 766 for allmusic, 296 for tagtraum, 315 for discogs or 327 for lastfm.")
 @click.option("--patience", default=5, help="Patience is an early stopping parameter.")
-def train(epochs, block_step, batch_size, num_workers, seed, dataset, num_classes, patience):
+def train(epochs, block_step, batch_size, seed, dataset, num_classes, patience):
     """
     sample calls:
     python train.py --batch_size 5 --block_step 20 --patience 10 --dataset discogs --num_classes 315  
@@ -137,7 +130,6 @@ def train(epochs, block_step, batch_size, num_workers, seed, dataset, num_classe
     print(f'Total params: {pytorch_total_params}')
     print(f'Trainable params: {pytorch_total_trainable_params}')
 
-    # sgd = optim.SGD(model.parameters(), lr=0.1, momentum=0.9, nesterov=True, weight_decay=1e-6)
     optimizer = optim.Adam(params=model.parameters(), lr=0.001, betas=(0.9, 0.999), eps=1e-08)
     criterion = nn.BCELoss()
 
@@ -237,13 +229,6 @@ def train(epochs, block_step, batch_size, num_workers, seed, dataset, num_classe
     file = f'{common.SAVED_MODELS_DIR}/subtask1_{dataset}.pt'
     torch.save(model.state_dict(), file)
     print(f'best model for {dataset} saved to {file}')
-
-    # TODO save activations from feeding OTHER datasets (whatever that means)
-    # weights = model.state_dict()['input.weight']
-    # file = f'{common.EMBEDDED_DIR}/embedded_vector_{dataset}.npy'
-    # np.save(file, weights.cpu().numpy())
-    # print(f'best embedded vector for {dataset} saved to {file}')
-
 
 if __name__ == "__main__":
     train()

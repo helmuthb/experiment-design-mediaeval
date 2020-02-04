@@ -23,4 +23,7 @@ class Subtask1Model(nn.Module):
         x = F.dropout(x, p=self.dropout_factor)
         x = torch.sigmoid(self.dense(x)) # UserWarning: nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.
         return x
+    
+    def get_activation(self, x):
+        return F.relu(self.input(x))
 
