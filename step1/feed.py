@@ -31,7 +31,7 @@ def batch_block_generator(dataset, block_step, batch_size, y_path, N_train, id2g
 
 def save_activation(type, model_name, dataset_name, model_activations):
     file = f'{common.TRAINDATA_DIR}/X_{type}_{model_name}_{dataset_name}.npy'
-    np.save(file, model_activations)
+    np.save(file, np.concatenate(model_activations, axis=0))
     print(f'{model_name} model for {type} dataset {dataset_name} saved to {file}.')
 
 @click.command()
