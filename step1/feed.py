@@ -34,6 +34,11 @@ def batch_block_generator(dataset, block_step, batch_size, y_path, N_train, id2g
                 y_batch = y_block[items_in_batch]
                 yield (x_batch, y_batch)
 
+def save_activation(type, model_name, dataset_name, model_activations):
+    file = f'{common.TRAINDATA_DIR}/X_{type}_{model_name}_{dataset_name}.npy'
+    np.save(file, model_activations)
+    print(f'{model_name} model for {type} dataset {dataset_name} saved to {file}.')
+
 @click.command()
 @click.option("--batch_size", default=1, help="Batch Size.")
 @click.option("--block_step", default=1, help="Block Step.")
@@ -55,6 +60,8 @@ def feed(batch_size, block_step, dataset, num_classes):
     index_train = f["index"][:]
     index_train = np.delete(index_train, np.where(index_train == ""))
     N_train = index_train.shape[0]
+
+    X_val, Y_val, X_test, Y_test, N_train = common.load_data_hf5_memory(dataset, 0.1, 0.1, y_path, id2gt)
 
     #########
     # discogs
@@ -100,28 +107,57 @@ def feed(batch_size, block_step, dataset, num_classes):
     allmusic_model.to(device)
     allmusic_model_activations = []
 
-    # get the activation froem each model for given dataset
+    ######################################################
+    # get the activation from each model for train dataset
+    ######################################################
     for _, data in enumerate(batch_block_generator(dataset, block_step, batch_size, y_path, N_train, id2gt), 0):
         discogs_model_activations.append(discogs_model.get_activation(torch.Tensor(data[0]).to(device)).detach().numpy())
         tagtraum_model_activations.append(tagtraum_model.get_activation(torch.Tensor(data[0]).to(device)).detach().numpy())
         lastfm_model_activations.append(lastfm_model.get_activation(torch.Tensor(data[0]).to(device)).detach().numpy())
         allmusic_model_activations.append(allmusic_model.get_activation(torch.Tensor(data[0]).to(device)).detach().numpy())
 
-    file = f'{common.TRAINDATA_DIR}/X_train__discogs_{dataset}.npy'
-    np.save(file, discogs_model_activations)
-    print(f'discogs model for dataset {dataset} saved to {file}')
+    save_activation('train', 'discogs', dataset, discogs_model_activations)
+    save_activation('train', 'tagtraum', dataset, tagtraum_model_activations)
+    save_activation('train', 'lastfm', dataset, lastfm_model_activations)
+    save_activation('train', 'allmusic', dataset, allmusic_model_activations)
 
-    file = f'{common.TRAINDATA_DIR}/X_train__tagtraum_{dataset}.npy'
-    np.save(file, tagtraum_model_activations)
-    print(f'tagtraum model for dataset {dataset} saved to {file}')
+    discogs_model_activations = []
+    tagtraum_model_activations = []
+    lastfm_model_activations = []
+    allmusic_model_activations = []
 
-    file = f'{common.TRAINDATA_DIR}/X_train__lastfm_{dataset}.npy'
-    np.save(file, lastfm_model_activations)
-    print(f'lastfm model for dataset {dataset} saved to {file}')
+    ######################################################
+    # get the activation from each model for valid dataset
+    ######################################################
+    for data in X_val:
+        discogs_model_activations.append(discogs_model.get_activation(torch.Tensor(data).to(device)).detach().numpy())
+        tagtraum_model_activations.append(tagtraum_model.get_activation(torch.Tensor(data).to(device)).detach().numpy())
+        lastfm_model_activations.append(lastfm_model.get_activation(torch.Tensor(data).to(device)).detach().numpy())
+        allmusic_model_activations.append(allmusic_model.get_activation(torch.Tensor(data).to(device)).detach().numpy())
 
-    file = f'{common.TRAINDATA_DIR}/X_train__allmusic_{dataset}.npy'
-    np.save(file, allmusic_model_activations)
-    print(f'allmusic model for dataset {dataset} saved to {file}')
+    save_activation('val', 'discogs', dataset, discogs_model_activations)
+    save_activation('val', 'tagtraum', dataset, tagtraum_model_activations)
+    save_activation('val', 'lastfm', dataset, lastfm_model_activations)
+    save_activation('val', 'allmusic', dataset, allmusic_model_activations)
+
+    discogs_model_activations = []
+    tagtraum_model_activations = []
+    lastfm_model_activations = []
+    allmusic_model_activations = []
+
+    #####################################################
+    # get the activation from each model for test dataset
+    #####################################################
+    for data in X_test:
+        discogs_model_activations.append(discogs_model.get_activation(torch.Tensor(data).to(device)).detach().numpy())
+        tagtraum_model_activations.append(tagtraum_model.get_activation(torch.Tensor(data).to(device)).detach().numpy())
+        lastfm_model_activations.append(lastfm_model.get_activation(torch.Tensor(data).to(device)).detach().numpy())
+        allmusic_model_activations.append(allmusic_model.get_activation(torch.Tensor(data).to(device)).detach().numpy())
+
+    save_activation('test', 'discogs', dataset, discogs_model_activations)
+    save_activation('test', 'tagtraum', dataset, tagtraum_model_activations)
+    save_activation('test', 'lastfm', dataset, lastfm_model_activations)
+    save_activation('test', 'allmusic', dataset, allmusic_model_activations)
 
 if __name__ == "__main__":
     feed()
