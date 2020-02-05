@@ -33,7 +33,7 @@ def batch_block_generator(dataset, block_step, batch_size, y_path, N_train, id2g
 
 def save_activation(type, model_name, dataset_name, model_activations):
     file = f'{common.TRAINDATA_DIR}/X_{type}_{model_name}_{dataset_name}.npy'
-    np.save(file, np.concatenate(model_activations, axis=0))
+    np.save(file, model_activations)
     print(f'{model_name} model for {type} dataset {dataset_name} saved to {file}.')
 
 @click.command()
@@ -113,10 +113,10 @@ def feed(batch_size, block_step, dataset, num_classes):
         lastfm_model_activations.append(lastfm_model.get_activation(torch.Tensor(data[0]).to(device)).detach().numpy())
         allmusic_model_activations.append(allmusic_model.get_activation(torch.Tensor(data[0]).to(device)).detach().numpy())
 
-    save_activation('train', 'discogs', dataset, discogs_model_activations)
-    save_activation('train', 'tagtraum', dataset, tagtraum_model_activations)
-    save_activation('train', 'lastfm', dataset, lastfm_model_activations)
-    save_activation('train', 'allmusic', dataset, allmusic_model_activations)
+    save_activation('train', 'discogs', dataset, np.concatenate(discogs_model_activations, axis=0))
+    save_activation('train', 'tagtraum', dataset, np.concatenate(tagtraum_model_activations, axis=0))
+    save_activation('train', 'lastfm', dataset, np.concatenate(lastfm_model_activations, axis=0))
+    save_activation('train', 'allmusic', dataset, np.concatenate(allmusic_model_activations, axis=0))
 
     discogs_model_activations = []
     tagtraum_model_activations = []
