@@ -7,11 +7,6 @@ from torchvision import datasets
 import common 
 from models import Subtask1Model
 
-def get_activation(batch_size, model):
-    for index, data in enumerate(batch_block_generator(dataset,batch_size,y_path,N_train,id2gt), 0):
-        # get activations
-        model.get_activation()
-
 def batch_block_generator(dataset, block_step, batch_size, y_path, N_train, id2gt):
     hdf5_file = f"{common.PATCHES_DIR}/patches_train_{dataset}_1x1.hdf5"
     f = h5py.File(hdf5_file,"r")
