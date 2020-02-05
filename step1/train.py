@@ -91,7 +91,6 @@ def train(epochs, block_step, batch_size, seed, dataset, num_classes, patience):
     early_stopping = EarlyStopping(patience=patience, verbose=True)
     train_losses = []
     valid_losses = []
-    valid_roc_aucs = []
     test_losses = []
     avg_train_losses = []
     avg_valid_losses = [] 
@@ -100,49 +99,44 @@ def train(epochs, block_step, batch_size, seed, dataset, num_classes, patience):
 
     for epoch in range(1, epochs + 1):
 
+        # set model mode to "training"
         model.train()
-        for index, data in enumerate(batch_block_generator(dataset, block_step, batch_size,y_path,N_train,id2gt), 0):
-
+        # get blocks of specified batch size and use it to train the model
+        for index, data in enumerate(batch_block_generator(dataset, block_step, batch_size, y_path, N_train, id2gt), 0):
             inputs, labels = torch.Tensor(data[0]).to(device), torch.Tensor(data[1]).to(device)
-
             optimizer.zero_grad()
-
             outputs = model(inputs)
-
             loss = criterion(outputs, labels)
-
             loss.backward()
-
             optimizer.step()
-
             train_losses.append(loss.item())
 
+        # set model mode to "evaluation"
         model.eval()
+        # calculate loss and AUC-ROC
+        predicted_y = []
+        true_y = []
         for data, target in validation_set:
-
             output = model(torch.Tensor(data).to(device))
-
             loss = criterion(output, torch.Tensor(target).to(device))
-
             valid_losses.append(loss.item())
+            predicted_y.append(output.detach().cpu().numpy())
+            true_y.append(target)
 
-            try:
-                valid_roc_aucs.append(roc_auc_score(np.array(target), output.detach().numpy()))
-            except:
-                valid_roc_aucs.append(0.0)
+        try:
+            valid_roc_auc = roc_auc_score(np.array(true_y), np.array(predicted_y))
+        except:
+            valid_roc_auc = 0.0
 
         for data, target in test_set:
 
             output = model(torch.Tensor(data).to(device))
-
             loss = criterion(output, torch.Tensor(target).to(device))
-
             test_losses.append(loss.item())
 
         train_loss = np.average(train_losses)
         valid_loss = np.average(valid_losses)
         test_loss = np.average(test_losses)
-        valid_roc_auc = np.average(valid_roc_aucs)
         avg_train_losses.append(train_loss)
         avg_valid_losses.append(valid_loss)
         avg_test_losses.append(test_loss)
