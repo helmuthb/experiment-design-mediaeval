@@ -29,6 +29,19 @@
                 "--block_step", "20",
                 "--patience", "10"
             ]
+        },
+        {
+            "name": "Python: Subtask 2a - Get Activations",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/step1/feed.py",
+            "cwd": "${workspaceFolder}/step1",
+            "args" : [
+                "--batch_size", "5",
+                "--block_step", "20",
+                "--dataset", "discogs",
+                "--num_classes", "315"
+            ]
         }
     ]
 }
