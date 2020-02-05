@@ -42,6 +42,14 @@ def save_activation(type, model_name, dataset_name, model_activations):
 @click.option("--dataset", default="discogs", help="Dataset: one of allmusic, tagtraum, discogs or lastfm.")
 @click.option("--num_classes", default=315, help="Ys: one of 766 for allmusic, 296 for tagtraum, 315 for discogs or 327 for lastfm.")
 def feed(batch_size, block_step, dataset, num_classes):
+    """
+    Sample calls:
+    python feed.py --batch_size 5 --block_step 20 --dataset discogs --num_classes 315  
+    python feed.py --batch_size 5 --block_step 20 --dataset lastfm --num_classes 327  
+    python feed.py --batch_size 5 --block_step 20 --dataset allmusic --num_classes 766  
+    python feed.py --batch_size 5 --block_step 20 --dataset tagtraum --num_classes 296  
+    """
+
     # gpu or cpu
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print(f'using {device}')
