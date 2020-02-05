@@ -58,7 +58,7 @@ def feed(batch_size, block_step, dataset, num_classes):
     index_train = np.delete(index_train, np.where(index_train == ""))
     N_train = index_train.shape[0]
 
-    X_val, Y_val, X_test, Y_test, N_train = common.load_data_hf5_memory(dataset, 0.1, 0.1, y_path, id2gt)
+    X_val, Y_val, X_test, Y_test, N_train = common.load_data_hf5_memory(dataset, y_path, id2gt)
 
     #########
     # discogs

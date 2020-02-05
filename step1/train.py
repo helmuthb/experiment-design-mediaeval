@@ -82,7 +82,7 @@ def train(epochs, block_step, batch_size, seed, dataset, num_classes, patience):
     factors = np.load(common.DATASETS_DIR+'/y_train_'+y_path+'.npy')
     index_factors = open(common.DATASETS_DIR+'/items_index_train_'+dataset+'.tsv').read().splitlines()
     id2gt = dict((index,factor) for (index,factor) in zip(index_factors,factors))
-    X_val, Y_val, X_test, Y_test, N_train = common.load_data_hf5_memory(dataset, 0.1, 0.1, y_path, id2gt)
+    X_val, Y_val, X_test, Y_test, N_train = common.load_data_hf5_memory(dataset, y_path, id2gt)
 
     validation_set = list(zip(X_val[:], Y_val[:]))
     test_set = list(zip(X_test[:], Y_test[:]))
