@@ -49,10 +49,10 @@ def batch_block_generator(dataset, block_step, batch_size, y_path, N_train, id2g
 def train(epochs, block_step, batch_size, seed, dataset, num_classes, patience):
     """
     sample calls:
-    python train.py --batch_size 5 --block_step 20 --patience 10 --dataset discogs --num_classes 315  
-    python train.py --batch_size 5 --block_step 20 --patience 10 --dataset lastfm --num_classes 327  
-    python train.py --batch_size 5 --block_step 20 --patience 10 --dataset allmusic --num_classes 766  
-    python train.py --batch_size 5 --block_step 20 --patience 10 --dataset tagtraum --num_classes 296  
+    python train.py --batch_size 5 --block_step 20 --patience 4 --dataset discogs --num_classes 315  
+    python train.py --batch_size 5 --block_step 20 --patience 4 --dataset lastfm --num_classes 327  
+    python train.py --batch_size 5 --block_step 20 --patience 4 --dataset allmusic --num_classes 766  
+    python train.py --batch_size 5 --block_step 20 --patience 4 --dataset tagtraum --num_classes 296  
     """
 
     y_path = "class_" + str(num_classes) + "_" + dataset
