@@ -35,7 +35,7 @@ class Subtask2Model(nn.Module):
         self.dropout_factor = 0.5
 
         # network architecture
-        self.input = nn.Linear(1028, output_dim)
+        self.input = nn.Linear(1024, output_dim)
 
     def forward(self, meta1, meta2, meta3, meta4):
         

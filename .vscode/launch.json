@@ -42,6 +42,19 @@
                 "--dataset", "discogs",
                 "--num_classes", "315"
             ]
+        },
+        {
+            "name": "Python: Subtask 2b - Train new Model",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/step1/train_subtask2.py",
+            "cwd": "${workspaceFolder}/step1",
+            "args" : [
+                "--batch_size", "5",
+                "--block_step", "20",
+                "--dataset", "discogs",
+                "--num_classes", "315"
+            ]
         }
     ]
 }
