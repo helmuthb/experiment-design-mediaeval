@@ -153,6 +153,7 @@ def main(datasets):
                 df /= sdevs
                 df.fillna(0)
                 df.to_csv(f"{file_path}.features.clean.std.csv", mode="a", index=True, header=False)
+    logging.info("Scaling finished")
 
 
 if __name__ == "__main__":
