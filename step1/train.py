@@ -34,9 +34,11 @@ def batch_block_generator(dataset, block_step, batch_size, y_path, N_train, id2g
         for j in range(0, len(items_list), batch_size):
             if j+batch_size <= x_block.shape[0]:
                 items_in_batch = items_list[j:j+batch_size]
-                x_batch = x_block[items_in_batch]
-                y_batch = y_block[items_in_batch]
-                yield (x_batch, y_batch)
+            else:
+                items_in_batch = items_list[j:]
+            x_batch = x_block[items_in_batch]
+            y_batch = y_block[items_in_batch]
+            yield (x_batch, y_batch)
 
 @click.command()
 @click.option("--epochs", default=100, help="Number of epochs.")
