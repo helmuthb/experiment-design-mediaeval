@@ -41,18 +41,22 @@ def load_data_hf5_memory(dataset, y_path, id2gt):
     
     return X_val, Y_val, X_test, Y_test, N_train
 
-def load_data_preprocesed(params, X_path, Y_path, dataset, val_percent, test_percent, n_samples, metadata_source, with_metadata=False, only_metadata=False):
-    factors = np.load(DATASETS_DIR+'/y_train_'+Y_path+'.npy') # OJO remove S
-    all_Y = factors
+def load_x_data_preprocesed(dataset, metadata_source):
     all_X_meta = np.load(TRAINDATA_DIR+'/X_train_%s_%s.npy' % (metadata_source,dataset))
     all_X = all_X_meta
     print(all_X.shape)
-    print(all_Y.shape)
-    Y_val = np.load(DATASETS_DIR+'/y_val_'+Y_path+'.npy')
-    Y_test = np.load(DATASETS_DIR+'/y_test_'+Y_path+'.npy') #!!! OJO remove S from trainS
     X_val = np.load(TRAINDATA_DIR+'/X_val_%s_%s.npy' % (metadata_source,dataset))
     X_test = np.load(TRAINDATA_DIR+'/X_test_%s_%s.npy' % (metadata_source,dataset))
     X_train = all_X
+
+    return X_train, X_val, X_test
+
+def load_y_data_preprocesed(Y_path):
+    factors = np.load(DATASETS_DIR+'/y_train_'+Y_path+'.npy')
+    all_Y = factors
+    print(all_Y.shape)
+    Y_val = np.load(DATASETS_DIR+'/y_val_'+Y_path+'.npy')
+    Y_test = np.load(DATASETS_DIR+'/y_test_'+Y_path+'.npy')
     Y_train = all_Y
 
-    return X_train, Y_train, X_val, Y_val, X_test, Y_test
+    return Y_train, Y_val, Y_test
