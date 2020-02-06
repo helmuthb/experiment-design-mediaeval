@@ -136,7 +136,7 @@ def main(datasets):
     logging.info("Calculated means and standard deviations")
 
     logging.info("Scale preprocessed datasets")
-    rows_to_read = 350000
+    rows_to_read = 150000
     for dataset in datasets:
         for mode in modes:
             folder = (mode.split('-'))[0]
