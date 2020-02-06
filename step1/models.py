@@ -38,12 +38,18 @@ class Subtask2Model(nn.Module):
         self.input = nn.Linear(1024, output_dim)
 
     def forward(self, meta):
-        
-        x = torch.cat((
-            F.normalize(meta[0:256], p=2, dim=0),
-            F.normalize(meta[256:512], p=2, dim=0),
-            F.normalize(meta[512:768], p=2, dim=0),
-            F.normalize(meta[768:1024], p=2, dim=0)),0)
+        if len(meta.shape) == 1:
+            x = torch.cat((
+                F.normalize(meta[0:256], p=2, dim=0),
+                F.normalize(meta[256:512], p=2, dim=0),
+                F.normalize(meta[512:768], p=2, dim=0),
+                F.normalize(meta[768:1024], p=2, dim=0)),0)
+        else:
+            x = torch.cat((
+                F.normalize(meta[:,0:256], p=2, dim=1),
+                F.normalize(meta[:,256:512], p=2, dim=1),
+                F.normalize(meta[:,512:768], p=2, dim=1),
+                F.normalize(meta[:,768:1024], p=2, dim=1)),1)
         x = F.dropout(x, p=self.dropout_factor)
         x = torch.sigmoid(self.input(x)) # UserWarning: nn.functional.sigmoid is deprecated. Use torch.sigmoid instead.
         return x
