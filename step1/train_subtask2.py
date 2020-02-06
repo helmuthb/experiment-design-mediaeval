@@ -40,6 +40,27 @@ def batch_block_generator(dataset, block_step, batch_size, y_path, N_train, id2g
             y_batch = y_block[items_in_batch]
             yield (x_batch, y_batch)
 
+def batch_block_generator_x_y(dataset, block_step, batch_size, x, y):
+    block_step = block_step
+    batch_size = batch_size
+    N_train = len(x)
+    randomize = True
+    # while 1:
+    for i in range(0, N_train, block_step):
+        x_block = x[i:min(N_train, i+block_step)]
+        y_block = y[i:min(N_train, i+block_step)]
+        items_list = list(range(x_block.shape[0]))
+        if randomize:
+            random.shuffle(items_list)        
+        for j in range(0, len(items_list), batch_size):
+            if j+batch_size <= x_block.shape[0]:
+                items_in_batch = items_list[j:j+batch_size]
+            else:
+                items_in_batch = items_list[j:]
+            x_batch = x_block[items_in_batch]
+            y_batch = y_block[items_in_batch]
+            yield (x_batch, y_batch)
+
 @click.command()
 @click.option("--epochs", default=100, help="Number of epochs.")
 @click.option("--block_step", default=1, help="Block Step.")
@@ -63,9 +84,9 @@ def train(epochs, block_step, batch_size, seed, dataset, num_classes, patience):
 
     model = Subtask2Model(num_classes)
 
-    # not optimized for gpu yet
-    # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    device = torch.device("cpu")
+    # gpu or cpu
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    # device = torch.device("cpu")
     print(f'using {device}')
     model.to(device)
 
@@ -114,7 +135,7 @@ def train(epochs, block_step, batch_size, seed, dataset, num_classes, patience):
         # set model mode to "training"
         model.train()
         # get blocks of specified batch size and use it to train the model
-        for data, target in train_set:
+        for data, target in batch_block_generator_x_y(dataset, block_step, batch_size, X_train, Y_train):
             optimizer.zero_grad()
             output = model(torch.Tensor(data).to(device))
             loss = criterion(output, torch.Tensor(target).to(device))
