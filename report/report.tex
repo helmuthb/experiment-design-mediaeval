@@ -243,10 +243,7 @@ The result of subtask 1 are 4 models, each trained on the individual datasets (a
 
 \subsection{Learning the Step 2 Network}
 
-Due to time constraints we did not manage to learn all
-the networks required for step 1, which means we could not
-complete the step 2 network which is based on the
-stacked latent feature layers.
+We had all the fucking code for subtask 2 but we did not manage to execute it and we did not manage to ask for another fucking extension of the deadline. WTF?
 
 Our assumption is that following steps have been implemented in subtask 2:
 
@@ -265,6 +262,14 @@ Example for allmusic:
   \item We then predict allmusic dataset on all 4 models and save the activations
   \item We the concatenate the 4 activations to one input to a new model which is trained on allmusic again
 \end{itemize}
+
+For the ROC/AUC we first had an implementation which worked with pytorch 1.4 and macosx, but with pytorch 1.1 and docker/linux we faced the problem of 0 values for this metrics. Fixing this now broke the ROC/AUC metrics on pytorch 1.4 and macosx. Since we used linux for the complete dataset we did not further investigate this curious difference.
+
+We did not find a working python environment with gpu utilization for tartarus project, so we decided to implement the steps for the subtasks with pytorch with gpu support ourselves.
+
+We compared the number of trainable parameters of our implementation of the networks with the number in the tartarus example and ensured that the numbers are equal.
+
+The activations that we created with feed.py produced output which we were able to feed into the tartarus code and into our train-subtask2.py.
 
 \section{Reproduction - Additional Repository}\label{reproduction2}
 
