@@ -10,6 +10,7 @@
 \usepackage{alltt}
 \usepackage{float}
 \usepackage{listings}
+\usepackage{ctable}
 
 \usepackage[utf8]{inputenc}
 %% Python Source formatting
@@ -359,7 +360,21 @@ Problems:
 
 \subsection{Doing}
 
+\section{Results}
 
+\begin{table}
+    \centering
+    \begin{tabular}{lcccc}
+    \specialrule{.1em}{.05em}{.05em} 
+              & AllMusic & Discogs & Lastfm  & Tagtraum \\
+    \hline
+    Subtask 1 &          &         & 0.85281 &          \\
+    Subtask 2 &          &         &         &          \\
+    \specialrule{.1em}{.05em}{.05em} 
+    \end{tabular}
+    \caption{ROC AUC on validation datasets}
+    \label{tab:roc_auc_validation}
+\end{table}
 
 
 \bibliography{bibliography}
