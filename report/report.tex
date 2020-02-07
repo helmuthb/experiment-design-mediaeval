@@ -284,10 +284,10 @@ Pytorch 1.4 and MacOS.
 Since we used Linux for the complete dataset we did not further
 investigate this curious difference.
 
-The activations that we created with \texttt{feed.py}
+The activations that we created with \texttt{prepare\_subtask2.py}
 produced output which we were able to feed into the
-original code (not GPU-accelerated) and into our
-\texttt{train-subtask2.py}.
+original code's with \texttt{prepare\_subtask2} (not GPU-accelerated)
+and into our \texttt{train-subtask2.py}.
 
 \subsection{Datasets}
 
@@ -368,7 +368,7 @@ Workaround:
 
 Train pytorch models with gpu.
 
-Implemented in step1/train.py and step1/models.py 
+Implemented in subtasks/train.py and subtasks/models.py 
 
 Problems:
 \begin{itemize}
