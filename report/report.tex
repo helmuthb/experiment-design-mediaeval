@@ -136,7 +136,10 @@ used for validation during the training step.
 
 \section{Reproducing}
 
-\subsection{Data Sets}
+In the following subsections we describe the steps performed
+to reproduce the results from the original paper.
+
+\subsection{Downloading Data Sets}
 
 We downloaded the datasets provided by the authors via zenodo,
 in addition to the "allmusic" dataset from TUWEL
@@ -301,10 +304,13 @@ To great parts we took over the (batch) loading of the datasets from the tartaru
 One bug we found (and fixed in our version) was that in the batch block generator, for a dataset size 
 which was not divisible by the batch size, the remainder of the dataset was left out.
 
-\subsection{Datasets}
+\section{Details \& Issues Encountered}
 
-With the code from Section \ref{reproduction2} we provided the dataset
-according to the script and started \texttt{preprocessing.py},
+\subsection{Preprocessing}
+
+Using the code from the third-party repository,
+we provided the dataset in folders as expected by the script
+and started \texttt{preprocessing.py},
 which consists of 3 steps:
 \begin{itemize}
   \item creating CSV feature file and a genres file per dataset
@@ -333,7 +339,12 @@ ValueError: Unable to coerce to Series,
   length must be 2668: given 2669
 \end{lstlisting}
 
-Therefore \textit{preprocessing.py} has been adapted. The idea is to use the preprocessing step of the second repository to generate the files for the data-preparation step of the original repository. Afterwards the training should have all required files to start (see figure \ref{fig:preprocess}).
+Therefore \textit{preprocessing.py} has been adapted.
+We were hoping that after the preprocessing step
+of the third party repository we would receive all files needed
+for the data-preparation step of the original repository.
+Afterwards the training would have had all required files
+to start (see figure \ref{fig:preprocess}).
 
 \subsection{Preprocessing}
   \begin{figure}
@@ -343,55 +354,16 @@ Therefore \textit{preprocessing.py} has been adapted. The idea is to use the pre
   \end{figure}
 
   \begin{itemize}
-    \item preprocessing.py python3
-    \item participant\_split\_data.py
-    \item create\_h5.py python2 with h5py
+    \item \texttt{preprocessing.py} (Python 3)
+    \item \texttt{participant\_split\_data.py}
+    \item \texttt{create\_h5.py} (Python 2 with \texttt{h5py})
   \end{itemize}
 
   Problems:
   \begin{itemize}
-    \item TypeError: No conversion path for dtype: dtype('<U38') https://github.com/h5py/h5py/issues/1131 -> solved with using python2
+    \item \texttt{TypeError: No conversion path for dtype: dtype('<U38')} \url{https://github.com/h5py/h5py/issues/1131}
+    -> solved with using Python 2
   \end{itemize}
-
-\subsection{Train}
-
-all python3
-
-\begin{itemize}
-  \item python run\_experiments.py genre\_allmusic
-  \item python run\_experiments.py genres\_discogs
-  \item ... 
-  \item python run\_experiments.py genres\_allmusic\_multimodal part of our Reproducibility run???
-\end{itemize}
-
-Problems:
-\begin{itemize}
-  \item ValueError: Error when checking target: expected dense\_5 to have shape (766,) but got array with shape (1,)
-\end{itemize}
-
-\subsection{GPU}
-
-Problems:
-
-\begin{itemize}
-  \item Without GPU one epoch with only few 100 items takes hours -> reason was infinite loop due to too small(sic!) dataset in tartarus
-  \item cuda on windows 10 fails: \url{https://github.com/Theano/libgpuarray/issues/587}
-\end{itemize}
-
-Workaround:
-
-Train pytorch models with gpu.
-
-Implemented in subtasks/train.py and subtasks/models.py 
-
-Problems:
-\begin{itemize}
-  \item ValueError: Only one class present in y\_true. ROC AUC score is not defined in that case.
-\end{itemize}
-
-\subsection{Sources}
-
-\subsection{Doing}
 
 \section{Results}
 
