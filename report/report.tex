@@ -294,8 +294,7 @@ models by \texttt{run\_subtask2b.sh}.
 
 The activations that we created with \texttt{prepare\_subtask2.py}
 produced output which we were able to feed into the
-original code's with \texttt{prepare\_subtask2} (not GPU-accelerated)
-and into our reimplementation, \texttt{train-subtask2.py}.
+original code as well as into our reimplementation, \texttt{train-subtask2.py}.
 
 To great parts we took over the (batch) loading of the datasets from the tartarus code.
 One bug we found (and fixed in our version) was that in the batch block generator, for a dataset size 
