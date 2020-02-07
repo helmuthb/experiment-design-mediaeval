@@ -345,26 +345,18 @@ for the data-preparation step of the original repository.
 Afterwards the training would have had all required files
 to start (see figure \ref{fig:preprocess}).
 
-\subsection{Preprocessing}
-  \begin{figure}
+\begin{figure}
     \includegraphics[width=\linewidth]{Preprocess-Data.png}
     \caption{Preprocessing Data}
     \label{fig:preprocess}
-  \end{figure}
-
-  \begin{itemize}
-    \item \texttt{preprocessing.py} (Python 3)
-    \item \texttt{participant\_split\_data.py}
-    \item \texttt{create\_h5.py} (Python 2 with \texttt{h5py})
-  \end{itemize}
-
-  Problems:
-  \begin{itemize}
-    \item \texttt{TypeError: No conversion path for dtype: dtype('<U38')} \url{https://github.com/h5py/h5py/issues/1131}
-    -> solved with using Python 2
-  \end{itemize}
+\end{figure}
 
 \section{Results}
+
+We have collected the results as far as we have achieved them
+in Table~\ref{tab:roc_auc_validation}, and for
+comparison also added the table from the original paper
+(Table~\ref{tab:roc_auc_validation_original}).
 
 \begin{table}
     \centering
@@ -372,7 +364,7 @@ to start (see figure \ref{fig:preprocess}).
     \specialrule{.1em}{.05em}{.05em} 
               & AllMusic & Discogs & Lastfm  & Tagtraum \\
     \hline
-    Subtask 1 &          &         & 0.85281 & 0.82729 \\
+    Subtask 1 &          & 0.83384 & 0.85281 & 0.82729 \\
     Subtask 2 &          &         &         &          \\
     \specialrule{.1em}{.05em}{.05em} 
     \end{tabular}
@@ -394,10 +386,6 @@ to start (see figure \ref{fig:preprocess}).
     \caption{Original ROC AUC from paper}
     \label{tab:roc_auc_validation_original}
 \end{table}
-
-
-\bibliography{bibliography}
-\bibliographystyle{alpha}
 
 \end{document}
 \endinput
