@@ -134,6 +134,8 @@ As a preparational step the training data was split into 80\%/20\%
 "train-train" and "train-test" data by the authors,
 used for validation during the training step.
 
+\section{Reproducing}
+
 \subsection{Data Sets}
 
 We downloaded the datasets provided by the authors via zenodo,
@@ -283,18 +285,23 @@ Pytorch 1.4 and MacOS.
 Since we used Linux for the complete dataset we did not further
 investigate this curious difference.
 
-The models for subtask 1 can be created by executing \texttt{run\_subtask1.sh},
-the activations by executing \texttt{prepare\_subtask2.sh} and the final subtask 2
+The models for subtask 1 can be created by executing
+the script
+\texttt{run\_subtask1.sh},
+the activations by 
+\texttt{prepare\_subtask2.sh}, and the final subtask 2
 models by \texttt{run\_subtask2.sh}.
 
 The activations that we created with \texttt{prepare\_subtask2.py}
 produced output which we were able to feed into the
 original code's with \texttt{prepare\_subtask2} (not GPU-accelerated)
-and into our \texttt{train-subtask2.py}.
+and into our reimplementation, \texttt{train-subtask2.py}.
 
 \subsection{Datasets}
 
-With the code from Section \ref{reproduction2} we provided the dataset according to the script and started preprocessing, which consists of 3 steps:
+With the code from Section \ref{reproduction2} we provided the dataset
+according to the script and started \texttt{preprocessing.py},
+which consists of 3 steps:
 \begin{itemize}
   \item creating CSV feature file and a genres file per dataset
   \item calculating the mean and standard deviation of each dataset
@@ -327,7 +334,7 @@ Therefore \textit{preprocessing.py} has been adapted. The idea is to use the pre
 \subsection{Preprocessing}
   \begin{figure}
     \includegraphics[width=\linewidth]{Preprocess-Data.png}
-    \caption{Preprocessing Data.}
+    \caption{Preprocessing Data}
     \label{fig:preprocess}
   \end{figure}
 
