@@ -19,13 +19,6 @@
   frame=single
 }
 %%
-%% \BibTeX command to typeset BibTeX logo in the docs
-\AtBeginDocument{%
-  \providecommand\BibTeX{{%
-    \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
-\setlength{\parindent}{0cm}
-\setlength{\parskip}{0cm}
-\settopmatter{printfolios=true}
 
 \begin{abstract}
 Based on the paper
@@ -359,18 +352,13 @@ to start (see figure \ref{fig:preprocess}).
 
 \section{Results}
 
-We have collected the results as far as we have achieved them
-in Table~\ref{tab:roc_auc_validation}, and for
-comparison also added the table from the original paper
-(Table~\ref{tab:roc_auc_validation_original}).
-
 \begin{table}
     \centering
     \begin{tabular}{lcccc}
     \specialrule{.1em}{.05em}{.05em} 
               & AllMusic & Discogs & Lastfm  & Tagtraum \\
     \hline
-    Subtask 1 &          & 0.83384 & 0.85281 & 0.82729 \\
+    Subtask 1 &          & 0.83492 & 0.85281 & 0.82729  \\
     Subtask 2 &          &         &         &          \\
     \specialrule{.1em}{.05em}{.05em} 
     \end{tabular}
@@ -392,6 +380,11 @@ comparison also added the table from the original paper
     \caption{Original ROC AUC from paper}
     \label{tab:roc_auc_validation_original}
 \end{table}
+
+We have collected the results as far as we have achieved them
+in Table~\ref{tab:roc_auc_validation}, and for
+comparison also added the table from the original paper
+(Table~\ref{tab:roc_auc_validation_original}).
 
 \end{document}
 \endinput
