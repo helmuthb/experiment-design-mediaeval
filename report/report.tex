@@ -15,8 +15,7 @@
 \usepackage[utf8]{inputenc}
 %% Python Source formatting
 \lstset{ 
-  basicstyle=\footnotesize,
-  language=Python,
+  basicstyle=\footnotesize\ttfamily,
   frame=single
 }
 %%
@@ -151,8 +150,8 @@ their genres without being able to validate the correctness is of
 no value for us.
 Therefore we removed them later on.
 
-Overall we had to download data in the volume of (uncompressed)
-more than 100GB,
+Overall we had to download data in the volume of
+more than 100GB (uncompressed),
 split into 1772307 single files in JSON format.
 
 We have then randomly split the training data set into 80\%
@@ -188,16 +187,21 @@ had to implement a one-hot encoding to match the networks.
 We ended up with adding one more feature, the \emph{median}
 of the \emph{beats\_loudness}.
 It is missing in some observations and we are filling it with the mean
-of the median for the other observations in the training dataset.
-We ignored the fact that one of the features has a constant value,
+for the other observations in the training dataset.
+We have also ignored the fact that one of the features has a constant value,
 hoping that the impact of one feature, given the vast amount of features,
 will be neglectable.
+Again, with no documentation of the 2669 features chosen from the original
+paper it is difficult to know whether this is corresponding to the
+original implementation or not.
 
-Another issue with the code was that it performed the $z$-scaling using
-the mean and standard deviation estimated from \emph{all} observations,
+Another issue with the third-party code was that it performed the
+$z$-scaling using the mean and standard deviation estimated
+from \emph{all} observations,
 including data from the validation set.
 We changed this to only use mean and standard deviation estimates
-derived from the "train-train" dataset.
+derived from the "train-train" dataset, to avoid information
+leakage from validation data into the model.
 
 When running the conversion the runtime of this step itself was
 a practical issue.
@@ -219,7 +223,7 @@ persisted files and again TSV files for indexes.
 This code was working as provided without any major issue,
 except that it was necessary using Python version 2.
 
-\subsection{Learning the Step 1 Network}
+\subsection{Learning the Subtask 1 Network}
 
 The code for learning the first network is based on Keras
 with a Theano backend.
@@ -239,43 +243,54 @@ it in another platform turned out to be super simple.
 We used Pytorch where we have most experience
 in achieving GPU acceleration.
 
-The result of subtask 1 are 4 models, each trained on the individual datasets (allmusic, discogs, lastfm, tagtraum) with ROC/AUC scores on the validation data.
+The result of subtask~1 are 4 models, each trained on the individual
+datasets (allmusic, discogs, lastfm, tagtraum) with ROC/AUC scores
+on the validation data.
 
-\subsection{Learning the Step 2 Network}
+\subsection{Learning the Subtask 2 Network}
 
-We had all the fucking code for subtask 2 but we did not manage to execute it and we did not manage to ask for another fucking extension of the deadline. WTF?
-
-Our assumption is that following steps have been implemented in subtask 2:
+Our assumption is that following steps have been implemented in subtask~2:
 
 \begin{itemize}
   \item for each trained model
   \begin{itemize}
     \item make predictions with all tracks from each dataset
-    \item save all track activations for each dataset
-    \item use the track activations from each dataset as input to train a new model
+    \item save all track activations of the hidden layer for each dataset
+    \item use the track activations of the hidden layer from each dataset as input to train a new model
   \end{itemize}
 \end{itemize}
 
 Example for allmusic: 
 \begin{itemize}
   \item We train all 4 models as described in subtask 1
-  \item We then predict allmusic dataset on all 4 models and save the activations
-  \item We the concatenate the 4 activations to one input to a new model which is trained on allmusic again
+  \item We then predict allmusic dataset on all 4(!) models and save the activations of the hidden layer
+  \item We the concatenate the 4 activations to one input
+  to a new model which is trained on allmusic again, with an
+  output layer to predict allmusic's genres.
 \end{itemize}
 
-For the ROC/AUC we first had an implementation which worked with pytorch 1.4 and macosx, but with pytorch 1.1 and docker/linux we faced the problem of 0 values for this metrics. Fixing this now broke the ROC/AUC metrics on pytorch 1.4 and macosx. Since we used linux for the complete dataset we did not further investigate this curious difference.
+Similar as for subtask 1, we were forced to re-implement the steps,
+as running GPU-accelerated Theano was not possible for us.
+We compared the number of trainable parameters of our implementation
+of the networks with the number in the original code and ensured
+that the numbers are equal.
 
-We did not find a working python environment with gpu utilization for tartarus project, so we decided to implement the steps for the subtasks with pytorch with gpu support ourselves.
+For the ROC/AUC we first had an implementation which worked with
+Pytorch 1.4 and MacOS, but with pytorch 1.1 and Docker/Linux
+we faced the problem of 0 values for this metrics.
+Fixing this now broke the ROC/AUC metrics when running on
+Pytorch 1.4 and MacOS.
+Since we used Linux for the complete dataset we did not further
+investigate this curious difference.
 
-We compared the number of trainable parameters of our implementation of the networks with the number in the tartarus example and ensured that the numbers are equal.
+The models for subtask 1 can be created by executing \texttt{run\_subtask1.sh},
+the activations by executing \texttt{prepare\_subtask2.sh} and the final subtask 2
+models by \texttt{run\_subtask2.sh}.
 
-The models for subtask 1 can be created by executing run\_subtask1.sh, the activations by executing prepare\_subtask2.sh and the final subtask 2 models by run\_subtask2.sh.
-
-The activations that we created with prepare\_subtask2.py produced output which we were able to feed into the tartarus code and into our train-subtask2.py.
-
-\section{Reproduction - Additional Repository}\label{reproduction2}
-
-Some online research led us to a recently created Github repository\footnote{\url{https://github.com/nikuya3/acousticbrainz-mediaeval-baseline}, seen on 2020-01-30} which deals with the same paper. Additionally it has a preprocessing step included. Naturally, we cloned the repository and started inspecting \textit{preprocessing.py}. The script describes the creation of the files as we described it as input for the original paper repository in  section \ref{reproduction1}.
+The activations that we created with \texttt{prepare\_subtask2.py}
+produced output which we were able to feed into the
+original code's with \texttt{prepare\_subtask2} (not GPU-accelerated)
+and into our \texttt{train-subtask2.py}.
 
 \subsection{Datasets}
 
