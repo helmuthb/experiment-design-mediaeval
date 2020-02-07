@@ -292,13 +292,12 @@ The models for subtask 1 can be created by executing
 the script
 \texttt{run\_subtask1.sh},
 the activations by 
-\texttt{prepare\_subtask2.sh}, and the final subtask 2
-models by \texttt{run\_subtask2.sh}.
+\texttt{run\_subtask2a.sh}, and the final subtask 2
+models by \texttt{run\_subtask2b.sh}.
 
 The activations that we created with \texttt{prepare\_subtask2.py}
 produced output which we were able to feed into the
-original code's with \texttt{prepare\_subtask2} (not GPU-accelerated)
-and into our reimplementation, \texttt{train-subtask2.py}.
+original code as well as into our reimplementation, \texttt{train-subtask2.py}.
 
 To great parts we took over the (batch) loading of the datasets from the tartarus code.
 One bug we found (and fixed in our version) was that in the batch block generator, for a dataset size 
@@ -379,6 +378,21 @@ to start (see figure \ref{fig:preprocess}).
     \end{tabular}
     \caption{ROC AUC on validation datasets}
     \label{tab:roc_auc_validation}
+\end{table}
+
+
+\begin{table}
+  \centering
+    \begin{tabular}{lcccc}
+    \specialrule{.1em}{.05em}{.05em} 
+              & AllMusic & Discogs & Lastfm  & Tagtraum \\
+    \hline
+    Subtask 1 & 0.6476   & 0.7592  & 0.8276 & 0.8017 \\
+    Subtask 2 & 0.8122   & 0.8863  & 0.9064 & 0.8874 \\
+    \specialrule{.1em}{.05em}{.05em} 
+    \end{tabular}
+    \caption{Original ROC AUC from paper}
+    \label{tab:roc_auc_validation_original}
 \end{table}
 
 
