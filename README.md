@@ -20,6 +20,19 @@ Go to Data section of Mediaeval site, then to Download section. Click Google Dri
 
 [https://github.com/alastair]
 
+
+# Redo experiment
+
+The experiment is split into separate steps:
+
+- split-train-test.sh: Create train/test split
+- run-preprocess.sh: Extract the features and scale these
+- run-create-h5.sh: Create numpy files for tartarus subtask1/2a/2b
+- run-subtask1.sh: Run experiment 1
+- run-subtask2a.sh: Run experiment 2 - part1
+- run-subtask2b.sh: Run experiment 2 - part2
+
+
 # Step by Step
 
 ```
@@ -132,7 +145,7 @@ conda create -n theano_gpu python=3.6
 conda install keras=2.1.5 pandas theano scikit-learn matplotlib
 ```
 
-python=3.7 was very bad, conda exploded while calculation the dependencies
+python=3.7 was very bad, conda exploded while calculating the dependencies
 
 # Learnings
 
@@ -145,3 +158,7 @@ python=3.7 was very bad, conda exploded while calculation the dependencies
     - https://github.com/h5py/h5py/issues/1131
   - run_experiment python 3
     - ValueError: Error when checking target: expected dense_5 to have shape (766,) but got array with shape (1,)
+
+
+
+
