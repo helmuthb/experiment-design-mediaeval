@@ -44,10 +44,10 @@ def save_activation(type, model_name, dataset_name, model_activations):
 def feed(batch_size, block_step, dataset, num_classes):
     """
     Sample calls:
-    python feed.py --batch_size 5 --block_step 20 --dataset discogs --num_classes 315  
-    python feed.py --batch_size 5 --block_step 20 --dataset lastfm --num_classes 327  
-    python feed.py --batch_size 5 --block_step 20 --dataset allmusic --num_classes 766  
-    python feed.py --batch_size 5 --block_step 20 --dataset tagtraum --num_classes 296  
+    python prepare_subtask2.py --batch_size 5 --block_step 20 --dataset discogs --num_classes 315  
+    python prepare_subtask2.py --batch_size 5 --block_step 20 --dataset lastfm --num_classes 327  
+    python prepare_subtask2.py --batch_size 5 --block_step 20 --dataset allmusic --num_classes 766  
+    python prepare_subtask2.py --batch_size 5 --block_step 20 --dataset tagtraum --num_classes 296  
     """
 
     # gpu or cpu
@@ -116,10 +116,10 @@ def feed(batch_size, block_step, dataset, num_classes):
     # get the activation from each model for train dataset
     ######################################################
     for _, data in enumerate(batch_block_generator(dataset, block_step, batch_size, y_path, N_train, id2gt), 0):
-        discogs_model_activations.append(discogs_model.get_activation(torch.Tensor(data[0]).to(device)).detach().numpy())
-        tagtraum_model_activations.append(tagtraum_model.get_activation(torch.Tensor(data[0]).to(device)).detach().numpy())
-        lastfm_model_activations.append(lastfm_model.get_activation(torch.Tensor(data[0]).to(device)).detach().numpy())
-        allmusic_model_activations.append(allmusic_model.get_activation(torch.Tensor(data[0]).to(device)).detach().numpy())
+        discogs_model_activations.append(discogs_model.get_activation(torch.Tensor(data[0]).to(device)).cpu().detach().numpy())
+        tagtraum_model_activations.append(tagtraum_model.get_activation(torch.Tensor(data[0]).to(device)).cpu().detach().numpy())
+        lastfm_model_activations.append(lastfm_model.get_activation(torch.Tensor(data[0]).to(device)).cpu().detach().numpy())
+        allmusic_model_activations.append(allmusic_model.get_activation(torch.Tensor(data[0]).to(device)).cpu().detach().numpy())
 
     save_activation('train', 'discogs', dataset, np.concatenate(discogs_model_activations, axis=0))
     save_activation('train', 'tagtraum', dataset, np.concatenate(tagtraum_model_activations, axis=0))
@@ -135,10 +135,10 @@ def feed(batch_size, block_step, dataset, num_classes):
     # get the activation from each model for valid dataset
     ######################################################
     for data in X_val:
-        discogs_model_activations.append(discogs_model.get_activation(torch.Tensor(data).to(device)).detach().numpy())
-        tagtraum_model_activations.append(tagtraum_model.get_activation(torch.Tensor(data).to(device)).detach().numpy())
-        lastfm_model_activations.append(lastfm_model.get_activation(torch.Tensor(data).to(device)).detach().numpy())
-        allmusic_model_activations.append(allmusic_model.get_activation(torch.Tensor(data).to(device)).detach().numpy())
+        discogs_model_activations.append(discogs_model.get_activation(torch.Tensor(data).to(device)).cpu().detach().numpy())
+        tagtraum_model_activations.append(tagtraum_model.get_activation(torch.Tensor(data).to(device)).cpu().detach().numpy())
+        lastfm_model_activations.append(lastfm_model.get_activation(torch.Tensor(data).to(device)).cpu().detach().numpy())
+        allmusic_model_activations.append(allmusic_model.get_activation(torch.Tensor(data).to(device)).cpu().detach().numpy())
 
     save_activation('val', 'discogs', dataset, discogs_model_activations)
     save_activation('val', 'tagtraum', dataset, tagtraum_model_activations)
@@ -154,10 +154,10 @@ def feed(batch_size, block_step, dataset, num_classes):
     # get the activation from each model for test dataset
     #####################################################
     for data in X_test:
-        discogs_model_activations.append(discogs_model.get_activation(torch.Tensor(data).to(device)).detach().numpy())
-        tagtraum_model_activations.append(tagtraum_model.get_activation(torch.Tensor(data).to(device)).detach().numpy())
-        lastfm_model_activations.append(lastfm_model.get_activation(torch.Tensor(data).to(device)).detach().numpy())
-        allmusic_model_activations.append(allmusic_model.get_activation(torch.Tensor(data).to(device)).detach().numpy())
+        discogs_model_activations.append(discogs_model.get_activation(torch.Tensor(data).to(device)).cpu().detach().numpy())
+        tagtraum_model_activations.append(tagtraum_model.get_activation(torch.Tensor(data).to(device)).cpu().detach().numpy())
+        lastfm_model_activations.append(lastfm_model.get_activation(torch.Tensor(data).to(device)).cpu().detach().numpy())
+        allmusic_model_activations.append(allmusic_model.get_activation(torch.Tensor(data).to(device)).cpu().detach().numpy())
 
     save_activation('test', 'discogs', dataset, discogs_model_activations)
     save_activation('test', 'tagtraum', dataset, tagtraum_model_activations)

@@ -22,8 +22,8 @@
             "name": "Python: Subtask 1 - Train Model",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/step1/train.py",
-            "cwd": "${workspaceFolder}/step1",
+            "program": "${workspaceFolder}/subtasks/train.py",
+            "cwd": "${workspaceFolder}/subtasks",
             "args" : [
                 "--batch_size", "5",
                 "--block_step", "20",
@@ -34,8 +34,8 @@
             "name": "Python: Subtask 2a - Get Activations",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/step1/feed.py",
-            "cwd": "${workspaceFolder}/step1",
+            "program": "${workspaceFolder}/subtasks/prepare_subtask2.py",
+            "cwd": "${workspaceFolder}/subtasks",
             "args" : [
                 "--batch_size", "5",
                 "--block_step", "20",
@@ -47,8 +47,8 @@
             "name": "Python: Subtask 2b - Train new Model",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/step1/train_subtask2.py",
-            "cwd": "${workspaceFolder}/step1",
+            "program": "${workspaceFolder}/subtasks/train_subtask2.py",
+            "cwd": "${workspaceFolder}/subtasks",
             "args" : [
                 "--batch_size", "5",
                 "--block_step", "20",
